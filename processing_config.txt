@@ -1,0 +1,95 @@
+# Input sample data files
+
+# Input concatenated MAF file
+#concat_maf_file="inputs/PR021_reproc_20240411_downsample1_summaries/PR021_reproc20240411_downsample1_20240423.csv.dcs.concatMaf.maf"
+#concat_maf_file="inputs/mafs/DNA03962_S2.1.consensus.variant-calls.maf"
+concat_maf_file="inputs/mafs/allSamples_noINFO.maf"
+
+# Input concatenated depth file
+#depth_file="inputs/PR021_reproc_20240411_downsample1_summaries/PR021_reproc20240411_downsample1_20240423.csv.dcs.concatDepthsWithContext.tsv"
+#depth_file="inputs/mafs/DNA03962_S2.1.consensus.variant-calls.genome.pipeline.tsv"
+depth_file="inputs/mafs/combined_genome_pipeline.tsv"
+
+# Input Seshat file
+seshat_long_file="inputs/PR021_reproc_20240411_downsample1_summaries/PR021_reproc20240411_downsample1_20240423.csv.dcs.concatMaf.SeshatLong-20240424_011037_181513.tsv"
+
+#A file containing extra data about samples
+extra_data_file="inputs/sample_information.csv"
+linReg="inputs/lin_reg_models.tsv"
+
+# Parameters for Tumor Sample Barcode processing
+#TSB_parts="Source,Number,Tissue"
+#TSB_pattern="^((UWM)|(UWM-NE)|(UWM_NE)|(UWM-NT)|(UWM_NT)|(NBB))[_-]([0-9]{1-4})_([A-Z]{1-3})_[0-9]{2}?_?E?Z?F?$"
+#TSB_len=15
+
+# Input BED files
+# # bed12 file for gene definition
+#bed12="inputs/BEDs/tp53_20230424.bed"
+bed12="inputs/BEDs/pan00367.targets.hs38DH.bed"
+bed12_CHIP="inputs/BEDs/chip.panel.targets.hs38DH.bed"
+bed12_MUT="inputs/BEDs/mut.panel.targets.hs38DH.bed"
+bed12_CHIP_MUT="inputs/BEDs/pan00343.targets.hs38DH.bed"
+
+# # bed6 file for block / coding definition
+#bed6="inputs/BEDs/tp53_20230424.bed6.bed"
+bed6="inputs/BEDs/pan00367.targets.hs38DH.bed"
+bed6_CHIP="inputs/BEDs/chip.panel.targets.hs38DH.bed"
+bed6_MUT="inputs/BEDs/mut.panel.targets.hs38DH.bed"
+bed6_CHIP_MUT="inputs/BEDs/pan00343.targets.hs38DH.bed"
+
+# # bed6 file for mask definition
+maskBed="inputs/BEDs/tp53.nextseq-maskinglist.bed"
+
+# NO SELECTION FILES
+# # No Selection MAF File:
+NoSel_MAF="inputs/NoSelection/TP53_No_Sel_MAF.maf"
+# # No Selection Seshat long file
+NoSel_seshat="inputs/NoSelection/long-20220707_NoSelection_Seshat.tsv"
+
+# Input AlphaMissense annotation file
+AlphaMissense="inputs/alphamissense/AlphaMissense_hg38.TP53.tsv"
+
+# Input IntOGen file
+intOGen="inputs/IntOGen/TP53.OV.prediction.tsv"
+
+# COSMIC FILES
+# # Location for COSMIC downloaded files
+COSMIC_dir="inputs/COSMIC"
+# # COSMIC files pattern
+COSMIC_pattern="^COSMIC.*\.csv$"
+# # COSMIC file
+COSMIC_file="inputs/COSMIC/COSMIC_TP53_ENST00000269305.8_V97_38_MUTANT_ret202301181010.csv"
+# # COSMIC VCF file
+COSMIC_VCF="inputs/COSMIC/CosmicCodingMuts_TP53.vcf"
+# # COSMIC Seshat file
+COSMIC_Seshat="inputs/COSMIC/CosmicCodingMuts_TP53_Seshat.tsv"
+COSMIC_MAF="inputs/COSMIC/CosmicCodingMuts_TP53.maf"
+
+# TRANSLATION FILES
+# # Variant classification Translation
+varClassTrans="inputs/TranslationTables/MAF_VCT.tsv"
+# # Translation table for the Seshat Comment_1_Frequency column
+seshat_com1_translate="inputs/TranslationTables/Seshat_Com1_Trans.tsv"
+# # Translation table for the Seshat Pathogenicity column
+seshat_path_translate="inputs/TranslationTables/Seshat_Path_Trans.tsv"
+
+# Processing parameters
+#A prefix for any output files created
+out_prefix="outputs/PR021_Final20240624"
+# Tissue-specific sample depth limits
+sampDepthLims="inputs/sampleDepthLims.csv"
+#The minimum depth to use in this analysis
+min_depth=1000
+# The maximum Mutant Allele Frequency to use in analysis
+VAF_lim=0.3
+#N filtering for screening
+maxNs=0.1
+#Comma delimited list of filters to apply to the MAF file
+filters_to_apply=""
+
+# Other anotations
+# Filtered domains file
+domains_file="inputs/tp53.filteredDomains.tsv"
+
+targetSize=1222
+
