@@ -1,0 +1,40 @@
+# Ignore output files
+outputs/*
+!outputs/.gitkeep
+# Ignore results
+results/*
+
+# Ignore R files
+.Rproj.user
+.RData
+.Rhistory
+.Ruserdata
+
+# Pipeline files #
+##################
+
+inputs/all_muts_annotated.tsv.gz
+inputs/alphamissense/*
+inputs/bed_file_MUT.csv
+inputs/all_muts_vep.txt.gz
+inputs/all_possible_sites_annotated.tsv.gz
+inputs/bed_file_MUT.csv
+inputs/COSMIC/external/*
+scripts_full/*
+inputs/gencode.v38.annotation.gff3.gz
+inputs/mafs/*
+inputs/ref_genomes/*
+inputs/bed_file_test.csv
+inputs/UMD/filtered_UMD_db.tsv
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.Rhistory
+.Rproj.user

@@ -1,0 +1,42 @@
+sample	sampleID	subject	tissue
+DNA03977_S14.1	DNA03977	Patient:	Whole blood
+DNA03975_S12.1	DNA03975	Patient:	Buffy coat
+DNA03976_S13.1	DNA03976	Patient:	Plasma
+DNA03978_S15.1	DNA03978	Patient:	Bone marrow
+DNA03980_S17.1	DNA03980	Patient:	Buccal mucosa
+DNA04003_S29.1	DNA04003	Patient:	Thyroid
+DNA03979_S16.1	DNA03979	Patient:	Mainstem bronchus
+DNA03993_S22.1	DNA03993	Patient:	Lung   
+DNA03983_S34.1	DNA03983	Patient:	Esophagus 1
+DNA03984_S19.1	DNA03984	Patient:	Esophagus 2
+DNA03987_S20.1	DNA03987	Patient:	Gastric 1
+DNA03988_S21.1	DNA03988	Patient:	Gastric 2
+DNA03981_S18.1	DNA03981	Patient:	Cardiac muscle
+DNA04001_S27.1	DNA04001	Patient:	Spleen
+DNA03989_S37.1	DNA03989	Patient:	Liver
+DNA03982_S33.1	DNA03982	Patient:	Colon
+DNA03995_S23.1	DNA03995	Patient:	Omentum
+DNA03996_S24.1	DNA03996	Patient:	Peritoneum
+DNA03997_S25.1	DNA03997	Patient:	Renal
+DNA04002_S28.1	DNA04002	Patient:	Testis
+DNA03998_S26.1	DNA03998	Patient:	Skeletal muscle
+DNA03999_S42.1	DNA03999	Patient:	Skin
+DNA04000_S43.1	DNA04000	Patient:	"Skin, non-sun-exposed"
+DNA03985_S35.1	DNA03985	Patient:	Esophageal cancer 1
+DNA03986_S36.1	DNA03986	Patient:	Esophageal cancer 2
+DNA03990_S38.1	DNA03990	Patient:	Liver metastasis 1
+DNA03991_S39.1	DNA03991	Patient:	Liver metastasis 2
+DNA03992_S40.1	DNA03992	Patient:	Lung metastasis
+DNA03994_S41.1	DNA03994	Patient:	Mediastinal metastasis
+DNA03962_S2.1	DNA03962	Family member A:	PBMC
+DNA03965_S30_S31.1	DNA03965	Family member A:	Urine cells
+DNA03963_S3.1	DNA03963	Family member B:	PBMC
+DNA03966_S32.1	DNA03966	Family member B:	Urine cells
+DNA03964_S4.1	DNA03964	Family member C:	PBMC
+DNA03968_S5.1	DNA03968	UW volunteer 1:	PBMC
+DNA03969_S6.1	DNA03969	UW volunteer 2:	PBMC
+DNA03970_S7.1	DNA03970	UW volunteer 3:	PBMC
+DNA03971_S8.1	DNA03971	UW volunteer 4:	PBMC
+DNA03972_S9.1	DNA03972	UW volunteer 5:	PBMC
+DNA03973_S10.1	DNA03973	UW volunteer 6:	PBMC
+DNA03974_S11.1	DNA03974	UW volunteer 7:	PBMC

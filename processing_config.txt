@@ -1,0 +1,37 @@
+# Input sample data files
+
+# Input concatenated MAF file
+concat_maf_file="inputs/mafs/allSamples_noINFO.maf"
+
+# Input concatenated depth file
+depth_file="inputs/mafs/combined_genome_pipeline.tsv"
+
+#A file containing extra data about samples
+extra_data_file="inputs/sample_information.csv"
+
+# Input BED files
+bed12_MUT="inputs/BEDs/mut.panel.targets.hs38DH.bed"
+bed6_MUT="inputs/BEDs/mut.panel.targets.hs38DH.bed"
+
+# Input AlphaMissense annotation file
+AlphaMissense="inputs/alphamissense/AlphaMissense_hg38.TP53.tsv"
+
+# Input IntOGen file
+intOGen="inputs/IntOGen/TP53.OV.prediction.tsv"
+
+# # Variant classification Translation
+varClassTrans="inputs/TranslationTables/MAF_VCT_.tsv"
+
+# Processing parameters
+#The minimum depth to use in this analysis
+min_depth=1000
+# The maximum Mutant Allele Frequency to use in analysis
+VAF_lim=0.3
+#N filtering for screening
+maxNs=0.1
+#Comma delimited list of filters to apply to the MAF file
+filters_to_apply=""
+
+# Filtered domains file
+domains_file="inputs/tp53.filteredDomains.tsv"
+

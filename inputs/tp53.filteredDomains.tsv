@@ -1,0 +1,4 @@
+HGNC	refseq.ID	protein.ID	aa.length	Start	End	domain.source	Label	Label2	domain.anno	pfam	Description
+TP53	NM_000546	NP_000537	393	5	29	db_xref	P53_TAD	TAD	P53 transactivation motif; pfam08563	pfam08563	P53 transactivation motif
+TP53	NM_000546	NP_000537	393	109	288	db_xref	P53	DNA-binding domain	P53 DNA-binding domain; cd08367	cd08367	P53 DNA-binding domain
+TP53	NM_000546	NP_000537	393	319	359	db_xref	P53_tetramer	Tetramerisation motif	P53 tetramerisation motif; pfam07710	pfam07710	P53 tetramerisation motif
