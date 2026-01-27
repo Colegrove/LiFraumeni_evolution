@@ -15,23 +15,25 @@ Note: The order of script execution within the main script must be preserved, as
 
 ### Using the pipeline
 1. Open the Rproject file LiFraumeni_evolution.Rproj
-2. Install required packages (see supplementary table for list of package versions: [pre-print supplemental materials](https://www.biorxiv.org/content/10.64898/2026.01.12.699071v1.supplementary-material))
-3. Supply required reference files: see following section for list of necessary files and recommended locations.
-4. Configure inputs: edit processing_config.txt file to specify input data paths (see sections below for input data types) and additional data filtering parameters.
+2. Install required packages:
+- See supplementary table for list of package versions: [pre-print supplemental materials](https://www.biorxiv.org/content/10.64898/2026.01.12.699071v1.supplementary-material)
+3. Supply required reference files:
+- See following section for list of necessary files and recommended locations.
+4. Configure inputs:
+- Edit processing_config.txt file to specify input data paths (see sections below for input data types) and additional data filtering parameters.
 5. Run scripts/00.0_MainScript.R
 
 ## Required reference files
 Large reference files are excluded from version control and must be provided prior to running pipeline:
 
 1. Human reference genome, inputs/refs/hg38.fa:
-- <link_to_data>
 2. All possible mutations table, inputs/all_possible_sites_annotated.tsv.gz:
 - A file containing all possible single-nucleotide variants must be generated and annotated with VEP
-- <link_to_VEP_webtool>
+- https://www.ensembl.org/vep
 3. Gene annotation file, inputs/gencode.v38.annotation.gff3.gz:
-- <link_to_download_file>
+- https://www.gencodegenes.org/human/release_48.html
 4. Alphamissense annotations file, inputs/alphamissense/AlphaMissense_hg38.tsv.gz:
-- <link_to_download_file>
+- https://zenodo.org/records/8208688
 
 ## Input clinical data
 Input sequencing datasets required to reproduce analysis will be available in dbGaP with accession number phs004484.v1.p1: <link>
