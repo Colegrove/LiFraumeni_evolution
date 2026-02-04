@@ -52,6 +52,7 @@ targ_bed6_MUT <- loadBed(inputs$bed6_MUT)
 
 # Convert genome.mut to depth file
 source("scripts/02.1.0_Mut2Depth.R")
+source("scripts/combine_mafFiles.R")
 # Read in Depth
 source("scripts/02.1.1_LoadDepth.R")
 ## filter out samples that do not contain depth requirements 
