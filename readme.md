@@ -1,6 +1,6 @@
 # Li-Fraumeni evolution
-
-This repository contains the analysis pipeline used to generate analysis and figures as part of the pre-print: [Ultra-deep duplex sequencing reveals unique features of somatic evolution in the normal tissues of a family with Li-Fraumeni syndrome](https://doi.org/10.64898/2026.01.12.699071). 
+This repository contains the analysis pipeline used to generate analysis and figures as part of the pre-print:  
+[Ultra-deep duplex sequencing reveals unique features of somatic evolution in the normal tissues of a family with Li-Fraumeni syndrome](https://doi.org/10.64898/2026.01.12.699071). 
 
 Data to run pipeline and recreate figures are available here: [dbGaP accession number phs004484.v1.p1]
 
@@ -9,7 +9,7 @@ Sample .BAM, .MAF, and .MUT files will be required to run analysis in entirety.
 ## Pipeline overview
 This repository is organized as an RStudio project and is intended to be run in R with the exception of phasing analysis run as a python script.
 
-Analyses are run using a main script (scripts/00.0_MainScript.R), which sources the analysis scripts in a fixed order.  
+Analyses are run using a main script (scripts/00.0_MainScript.R).  
 Note: The order of script execution within the main script must be preserved, as later steps depend on objects, annotations, and intermediate results generated throughout the workflow. 
 
 ### Using the pipeline
