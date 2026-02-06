@@ -148,12 +148,16 @@ source("scripts/DNV_tissues_ms_4B.R")
 ## Fig 4I
 source("scripts/dnds_classic_tissues_grouped_ms.R")
 
-## Fig 4K
-source("scripts/close_muts_181.R")
-source("scripts/phasing_tissue_ms_4G.R")
-
 ## Fig S5
 source("scripts/181_LFS_frequency_supp.R")
 
+## Fig 4K
+###### Note: To generate this figure, an external python script must be run.
+###### First, run close_muts_181.R
+###### Second, run phasing_tp53_181_indels.py in python.
+###### Third, run phasing_tissue_ms_4G.R
+
+source("scripts/close_muts_181.R")
+source("scripts/phasing_tissue_ms_4G.R")
 
 

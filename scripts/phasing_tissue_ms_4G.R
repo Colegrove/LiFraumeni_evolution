@@ -1,8 +1,20 @@
 ### Hunter Colegrove
 ## First run phasing_tp53_181_indels.py
 
-phased <- read_delim("results/phasing_181_indels.csv")
 
+file <- "results/phasing_181_indels.csv"
+if (!file.exists(file)) {
+  stop(
+    paste0(
+      "Required input file not found:\n  ", file, "\n\n",
+      "After running scripts/close_muts_181.R, 
+      run phasing_tp53_181_indels.py in python to generate input file."
+    ),
+    call. = FALSE
+  )
+}
+
+phased <- read_delim(file)
 phased <- phased %>%
   arrange(bam_file, mut_pos, base_at_check) %>%
   distinct(ref_base, mut_base, mut_pos, bam_file, .keep_all = TRUE) %>%
