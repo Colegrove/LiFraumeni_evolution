@@ -16,7 +16,7 @@ transcripts <- filt_maf %>%
   filter(Hugo_Symbol %in% CHIP_genes) %>% 
   group_by(Hugo_Symbol, Transcript_ID) %>% 
   summarise(count = n()) %>% 
-  dplyr::select(-count) %>% print(n = Inf)
+  dplyr::select(-count)
 transcripts_list <- transcripts$Transcript_ID
 transcripts_list <- c(transcripts_list, "ENST00000291552") # U2AF1 
 
@@ -43,7 +43,7 @@ annotations_expand <- annotations %>% filter(type == "transcript") %>%
   unnest(Pos) %>%
   dplyr::select(seqnames, Pos, gene_name) %>% 
   mutate(Pos = Pos) %>%
-  distinct(seqnames, Pos, gene_name, .keep_all = TRUE) %>% print(width = Inf)
+  distinct(seqnames, Pos, gene_name, .keep_all = TRUE)
 
 
 ## join genic regions
@@ -100,8 +100,7 @@ joined_cds_depth <- joined %>%
 ##############################################################################
 
 ## get targets from running cds_targets_bed.R
-bed_targets_path <- file.path("/Volumes/feder-vol1/project/li_fraumeni/",
-                              "scripts/2025-10-02-bed_file_prep/",
+bed_targets_path <- file.path("inputs/BEDs",
                               "coding_targets.bed")
 cols <- c("chr", "start", "end")
 bed_targets <- read_delim(bed_targets_path, col_names = cols)
@@ -152,13 +151,13 @@ maf_masked_coding <- filt_maf %>%
             by = c("Chromosome" = "chr", "Start_Position" = "Pos")) %>%
   filter(Tumor_Sample_Barcode != "DevDNA1_S1.1") 
 
-maf_masked_coding %>% print(width = Inf)
+
 testBed_MUT_add <- testBed_MUT %>%
   dplyr::rename(MUT_region = Gene)
 maf_masked_coding <- maf_masked_coding %>%
   left_join(testBed_MUT_add, by = c("Chromosome" = "Chr", "Start_Position"= "Pos")) %>%
   left_join(testBed_MUT_add, by = c("Chromosome" = "Chr", "End_Position"= "Pos"),
-            suffix=c("_StartPosition","_EndPosition")) %>% print(width = Inf)
+            suffix=c("_StartPosition","_EndPosition")) 
 
 
 ########## apply metadata to SNV filtering table

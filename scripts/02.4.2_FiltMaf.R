@@ -16,7 +16,6 @@ filt_maf <- MAF_table %>%
   arrange(desc(t_alt_count), path_am_order) %>% 
   mutate(SampCodingOrder = rank(dplyr::desc(t_alt_count), ties.method = "first")) %>% 
   group_by(NULL)
-filt_maf %>% print(width = Inf)
 
 ## table of mutations greater than VAF threshold
 snp_table <- MAF_table %>% 

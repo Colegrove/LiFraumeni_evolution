@@ -237,8 +237,7 @@ tissue_categories <- tribble(
 MF_tissue_groups <- mutFreq_prep %>% 
   left_join(tissue_categories, by=c("tissue" = "Tissue"))
 
-MF_tissue_groups
-MF_tissue_groups_tp53 <- MF_tissue_groups %>% filter(coding == "coding" | coding == "non-coding-CHIP") %>% print(n=Inf)
+MF_tissue_groups_tp53 <- MF_tissue_groups %>% filter(coding == "coding" | coding == "non-coding-CHIP")
 
 ## save supp table
 MF_tissue_groups_tp53_table <- MF_tissue_groups_tp53 %>%
@@ -246,7 +245,7 @@ MF_tissue_groups_tp53_table <- MF_tissue_groups_tp53 %>%
                 Age = age,
                 MF = mutFreq) %>% 
   dplyr::select(-mutReads, -mutBurden,-Category) %>% 
-  mutate(coding = if_else(coding == "non-coding-CHIP", "non-coding", coding)) %>% print()
+  mutate(coding = if_else(coding == "non-coding-CHIP", "non-coding", coding))
 write_delim(MF_tissue_groups_tp53_table, "results/MF_tissues_table.csv", delim=',')
 
 

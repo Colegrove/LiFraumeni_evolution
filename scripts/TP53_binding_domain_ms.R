@@ -63,7 +63,6 @@ tissue_filtering$group <- "Observed"
 all_missense$group <- "Not observed"
 combine_df <- bind_rows(tissue_filtering, all_missense)
 
-combine_df %>% filter(group != "Observed") %>% print(width = Inf)
 ## plot all observed together
 obsv_am_tissue <- ggplot(combine_df, aes(x = group, y = am_pathogenicity, color = group)) +
   geom_violin(
@@ -112,16 +111,12 @@ mask_rect_df <- data.frame(
   ymin = -Inf,
   ymax = Inf
 )
-combine_df_large_clones %>% print(width = Inf)
+
 n_counts <- combine_df_large_clones %>% group_by(group) %>% summarise(n=n())
 n_all <- n_counts %>% filter(group == "Not observed") %>% pull(n)
 n_1 <- n_counts %>% filter(group == "Observed (1 read)") %>% pull(n)
 n_large <- n_counts %>% filter(group == "Observed (>1 read)") %>% pull(n)
 
-n_counts
-n_all
-n_1
-n_large
 
 obsv_am_large_clones_tissue <- ggplot(combine_df_large_clones, aes(x = group, y = am_pathogenicity, color = group)) +
   geom_violin(
@@ -142,10 +137,6 @@ obsv_am_large_clones_tissue <- ggplot(combine_df_large_clones, aes(x = group, y 
     fill = "grey60", color = NA, alpha = 0.6, width = 0.8, trim = TRUE,
     position = position_nudge(x = 0.25)
   ) +
-  # annotate("rect",
-  #          xmin = 0.75, xmax = 1.25,
-  #          ymin = -Inf, ymax = Inf,
-  #          fill = "white", color = NA) +
   geom_rect(
     data = mask_rect_df,
     aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
@@ -166,7 +157,6 @@ obsv_am_large_clones_tissue <- ggplot(combine_df_large_clones, aes(x = group, y 
     )
   ) +
   scale_y_continuous(limit = c(0,1), breaks = c(0, 0.5, 1), labels = c("0", "0.5", "1")) +
-  #labs(y = "AlphaMissense\npathogenicity", x = NULL) +
   labs(y = "Pathogenicity score", x = NULL) +
   scale_x_discrete(
     labels = c(
@@ -297,7 +287,6 @@ blood_filtering <- maf_masked_coding %>%
   filter(Variant_Classification == "Missense_Mutation") %>%
   filter(!is.na(am_pathogenicity))
 
-blood_filtering %>% print(width = Inf)
 blood_filtering$group <- "Observed"
 all_missense$group <- "Not observed"
 combine_df <- bind_rows(blood_filtering, all_missense)

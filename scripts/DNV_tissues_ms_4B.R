@@ -126,7 +126,6 @@ dnv <- mutation_type_prep %>% filter(Variant_Type == "DNP") %>%
     )
   ) %>%
   mutate(DNV_group = factor(DNV_group, levels = c("CT>AC", "CC>TT", "GC>TT", "GT>AA")))
-dnv %>% print(width = Inf)
 
 dnv_colors <- c(
   "CC>TT" = "#E69F00",

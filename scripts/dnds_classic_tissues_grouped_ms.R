@@ -204,8 +204,6 @@ dnds_all_LFS <- expected_all %>%
 dnds_all_LFS <- dnds_all_LFS %>%
   filter(syn_obs >0 | nonsyn_obs > 0)
 
-
-dnds_all_LFS %>% print(n=Inf)
 set.seed(1)
 n_reps <- 200
 df <- dnds_all_LFS %>%

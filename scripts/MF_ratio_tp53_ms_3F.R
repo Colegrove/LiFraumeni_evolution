@@ -58,8 +58,6 @@ mutFreq_prep <-
   filter(Hugo_Symbol == "TP53") %>%
   mutate(age = age_map[Subject]) %>%
   mutate(plot_coding = if_else(!is.na(exon_number), "coding", "non-coding"))
-mutFreq_prep %>% print(width = Inf)
-
 
 lfs_subjects = c("Patient", "Family member A", "Family member C")
 ctx_subjects = c("Patient", "UW volunteer 7")
@@ -70,8 +68,7 @@ mutFreq_prep <- mutFreq_prep %>%
   summarise(n_muts = n()) %>%
   mutate(mutFreq = if_else(plot_coding == "coding", n_muts/denominator_coding, n_muts/denominator_noncoding)) %>%
   mutate(LFS = if_else(Subject %in% lfs_subjects, "LFS", "non-LFS")) %>%
-  mutate(CTx = if_else(Subject %in% ctx_subjects, "CTx", "non-CTx")) %>%
-  print()
+  mutate(CTx = if_else(Subject %in% ctx_subjects, "CTx", "non-CTx"))
 
 offsets <- mutFreq_prep %>%
   ungroup() %>%
@@ -82,7 +79,6 @@ offsets <- mutFreq_prep %>%
 
 mutFreq_prep <- mutFreq_prep %>%
   left_join(offsets) %>%
-  print() %>%
   mutate(
     shape_group = case_when(
       LFS == "LFS"     & CTx == "CTx"    ~ "LFS/CTx",
@@ -161,6 +157,5 @@ MF_coding_ratio <- ggplot(MF_ratio_prep,
     axis.text.y       = element_text(size = 8),
     axis.title.y = element_markdown(size = 8)
   )
-MF_coding_ratio
 #ggsave("results/MF_coding_ratio_tp53_ms.png", MF_coding_ratio, width = 1.5, height = 2.2, units = "in", dpi = 300)
 ggsave("results/Manuscript_figures/Fig_3/MF_coding_ratio_ms3F.png", MF_coding_ratio, width = 1.5, height = 2.2, units = "in", dpi = 300)

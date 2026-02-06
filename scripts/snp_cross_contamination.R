@@ -105,13 +105,11 @@ maf_masked_coding <- maf_masked_coding %>%
   filter(!SNP_exclude)
 
 
-maf_masked_coding %>% print(width = Inf)
 nm8_flagged <- maf_masked_coding %>%
   filter(str_detect(FILTER, "NM8\\.0")) %>% 
   group_by(mutPosition) %>%  
   filter(n_distinct(Samp) >= 3) %>% 
   ungroup()
-nm8_flagged %>% arrange(Start_Position) %>% print(n=Inf)
 
 removed_df <- maf_masked_coding %>%
   semi_join(
@@ -124,5 +122,3 @@ maf_masked_coding <- maf_masked_coding %>%
     nm8_flagged %>% dplyr::select(mutPosition, Samp),
     by = c("mutPosition", "Samp")
   )
-
-maf_masked_coding %>% filter(SNP_exclude) %>% print(width = Inf)

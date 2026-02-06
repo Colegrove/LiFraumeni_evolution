@@ -55,7 +55,6 @@ mutation_order <- mut_info$HGVSp_Short
 skyscraper_blood_ordered <- skyscraper_blood_contamination %>%
   mutate(HGVSp_Short = factor(HGVSp_Short, levels = mutation_order))
 
-skyscraper_blood_ordered %>% filter(Tissue == "Skin") %>% print(width = Inf)
 blood_contamination <- skyscraper_blood_ordered %>%
   ggplot(
     aes(

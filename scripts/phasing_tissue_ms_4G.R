@@ -1,7 +1,6 @@
 ### Hunter Colegrove
+## First run phasing_tp53_181_indels.py
 
-
-## run phasing_tp53_181_indels.py
 phased <- read_delim("results/phasing_181_indels.csv")
 
 phased <- phased %>%

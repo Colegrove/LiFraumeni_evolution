@@ -95,7 +95,7 @@ skyscraper_prep <-
 
 skyscraper_prep <- skyscraper_prep %>%
   mutate(Tissue = factor(Tissue, levels = tissue_order))
-skyscraper_prep %>% print(width = Inf)
+
 
 custom_label <- function(x) {
   sapply(x, function(t) {

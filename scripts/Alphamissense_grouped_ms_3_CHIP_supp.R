@@ -16,8 +16,6 @@ all_missense <- all_possible_muts %>%
 ######### All genes alphamissense supp figure
 ########################
 
-
-all_genes <- read_delim("/Volumes/feder-vol1/project/li_fraumeni/scripts/2025-11-25-alphamissense/all_genes_am.tsv")
 all_genes <- read_delim("results/all_genes_am.tsv")
 
 
@@ -27,13 +25,9 @@ blood_filtering <- all_genes %>%
   filter(Hugo_Symbol %in% CHIP_genes) %>%
   filter(!is.na(prot.pos)) %>% 
   filter(!is.na(exon_number)) %>%
-  #filter(Variant_Type=="SNP") %>% 
-  #filter(Variant_Classification == "Missense_Mutation") %>%
   filter(!is.na(am_pathogenicity.x) | !is.na(am_pathogenicity.y)) %>%
   mutate(am_pathogenicity.y = if_else(is.na(am_pathogenicity.y), am_pathogenicity.x, am_pathogenicity.y))
 
-
-blood_filtering %>% print(width = Inf)
 blood_filtering$group <- "Observed"
 all_missense$group <- "All possible"
 combine_df <- bind_rows(blood_filtering, all_missense)
@@ -45,8 +39,7 @@ am_groups <- combine_df %>%
   mutate(LFS = if_else(is.na(Subject), "All\npossible", LFS)) %>%
   mutate(CTX = if_else(Subject %in% ctx_subjects, "CTX", "no-CTX")) %>% 
   mutate(CTX = if_else(is.na(Subject), "", CTX)) %>%
-  mutate(lfs_group = paste(LFS,CTX, sep='\n')) %>% 
-  print(width = Inf)
+  mutate(lfs_group = paste(LFS,CTX, sep='\n')) 
 
 
 
