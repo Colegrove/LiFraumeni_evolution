@@ -1,16 +1,14 @@
 # Li-Fraumeni evolution
 
-This repository contains the analysis pipeline used to investigate somatic mutation and selection in normal and cancer tissues from individuals with Li-Fraumeni syndrome as part of the pre-print: [Ultra-deep duplex sequencing reveals unique features of somatic evolution in the normal tissues of a family with Li-Fraumeni syndrome](https://doi.org/10.64898/2026.01.12.699071). 
+This repository contains the analysis pipeline used to generate analysis and figures as part of the pre-print: [Ultra-deep duplex sequencing reveals unique features of somatic evolution in the normal tissues of a family with Li-Fraumeni syndrome](https://doi.org/10.64898/2026.01.12.699071). 
 
-The main branch of this repository contains the code used to generate all analysis within the publication using twinstrand's nexus-hosted variant calling pipeline. 
-
-Due to potential future unavailability to access the twinstrand analysis pipeline for general use, the <deepUMI_branch> of this repository contains code used to produce analysis using input data generated from the <deepUMI_tool> pipeline.
+Data to run pipeline and recreate figures are available here: [dbGaP accession number phs004484.v1.p1]
+Sample .BAM, .MAF, and .MUT files will be required to run analysis in entirety.
 
 ## Pipeline overview
-This repository is organized as an RStudio project and is intended to be run in R.
+This repository is organized as an RStudio project and is intended to be run in R with the exception of phasing analysis run as a python script.
 
 Analyses are run using a main script (scripts/00.0_MainScript.R), which sources the analysis scripts in a fixed order. 
-
 Note: The order of script execution within the main script must be preserved, as later steps depend on objects, annotations, and intermediate results generated throughout the workflow. 
 
 ### Using the pipeline
@@ -20,36 +18,19 @@ Note: The order of script execution within the main script must be preserved, as
 3. Supply required reference files:
 - See following section for list of necessary files and recommended locations.
 4. Configure inputs:
-- Edit processing_config.txt file to specify input data paths (see sections below for input data types) and additional data filtering parameters.
+- Edit processing_config.txt file to specify input data paths and additional data filtering parameters.
 5. Run scripts/00.0_MainScript.R
+- Note: To generate the final figure, phasing_tp53_181_indels.py will need to be run in python after close_muts_181.R. 
 
-## Required reference files
-Large reference files are excluded from version control and must be provided prior to running pipeline:
+## Required input files
+Large input files are excluded from version control and must be provided prior to running pipeline.
+Below are suggested filepath locations for input files. Edit processing_config.txt if input files are located in different locations.
 
-1. Human reference genome, inputs/refs/hg38.fa:
-2. All possible mutations table, inputs/all_possible_sites_annotated.tsv.gz:
+1. Human reference genome; inputs/refs/hg38.fa
+2. All possible mutations table; inputs/all_possible_sites_annotated.tsv.gz:
 - A file containing all possible single-nucleotide variants must be generated and annotated with VEP
 - https://www.ensembl.org/vep
 3. Gene annotation file, inputs/gencode.v38.annotation.gff3.gz:
 - https://www.gencodegenes.org/human/release_48.html
 4. Alphamissense annotations file, inputs/alphamissense/AlphaMissense_hg38.tsv.gz:
 - https://zenodo.org/records/8208688
-
-## Input clinical data
-Input sequencing datasets required to reproduce analysis will be available in dbGaP with accession number phs004484.v1.p1: <link>
-
-Sequence alignment and variant calling will need to be performed on the hosted .fastq files prior to the use of this pipeline. 
-
-We recommend the <deepUMI> analysis pipeline: <link_to_pipeline>
-
-## Input synthetic data
-To test the pipeline operation without access to patient data, a .maf file containing randomly simulated single nucleotide variants can be generated. 
-
-These mutations are not biologically observed and are intended for validating pipeline operation. 
-
-1. Run: <synthetic_data_script> to generate .maf file
-2. Assign synthetic data to config file. 
- 
-Note: 
-- All reference files will still be required prior to pipeline operation.
-- Some analyses such as dinucleotide variant and phasing analysis that require BAM files will not be produced.

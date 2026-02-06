@@ -4,7 +4,7 @@ import os
 
 ############ INPUTS ############
 mutations_file = "../results/close_muts_181.tsv" ## filtered maf from R
-bam_dir = "../"   ## directory containing BAM files
+bam_dir = "../BAMs/"   ## directory containing BAM files
 output_file = "../results/phasing_181_indels.csv"
 ################################
 
