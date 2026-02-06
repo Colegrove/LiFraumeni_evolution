@@ -77,7 +77,8 @@ CHIP_freq_plot_coding <- ggplot(coef_freq_CHIP_coding,
   scale_x_continuous(limits = c(-0.5, 1.5), breaks = seq(-0.5, 1.5, 0.5)) +
   geom_text(aes(label = sig, x = estimate),
             hjust = 0.5, vjust = 0.2, size = 5, color = "black") +
-  labs(x = expression("Effect size\n(mutations / "  * 10^7 * " bases)"), y = NULL) +
+  #labs(x = expression("Effect size\n(mutations / "  * 10^7 * " bases)"), y = NULL) +
+  labs(x = expression("Effect size"), y = NULL) +
   theme_classic(base_size = 8) +
   theme(axis.text.y = element_markdown(size = 8),
         axis.text.x = element_text(size = 8, angle=45, vjust = 0.5))
@@ -108,7 +109,8 @@ CHIP_freq_plot_non_coding <- ggplot(coef_freq_CHIP_non_coding,
   scale_x_continuous(limits = xlimits, breaks = xbreaks) +
   geom_text(aes(label = sig, x = estimate),
             hjust = 0.5, vjust = 0.2, size = 5, color = "black") +
-  labs(x = expression("Effect size\n(mutations / "  * 10^7 * " bases)"), y = NULL) +
+  #labs(x = expression("Effect size\n(mutations / "  * 10^7 * " bases)"), y = NULL) +
+  labs(x = expression("Effect size"), y = NULL) +
   theme_classic(base_size = 8) +
   theme(axis.text.y = element_markdown(size = 8),
         axis.text.x = element_text(size = 8, angle=45, vjust = 0.5))
