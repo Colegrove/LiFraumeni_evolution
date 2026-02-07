@@ -19,7 +19,6 @@ inputs/bed_file_MUT.csv
 inputs/all_muts_vep.txt.gz
 inputs/all_possible_sites_annotated.tsv.gz
 inputs/bed_file_MUT.csv
-inputs/COSMIC/external/*
 scripts_full/*
 inputs/gencode.v38.annotation.gff3.gz
 inputs/mafs/*
