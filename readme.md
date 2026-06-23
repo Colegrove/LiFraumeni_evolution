@@ -15,7 +15,8 @@ Note: The order of script execution within the main script must be preserved, as
 ### Using the pipeline
 1. Open the Rproject file LiFraumeni_evolution.Rproj
 2. Install required packages:
-- See supplementary table for list of package versions: [pre-print supplemental materials](https://www.biorxiv.org/content/10.64898/2026.01.12.699071v1.supplementary-material)
+- Run `setup.R` (at the repo root) once in R to install all dependencies automatically.
+- For exact package versions used in the published analysis, see [pre-print supplemental materials](https://www.biorxiv.org/content/10.64898/2026.01.12.699071v1.supplementary-material).
 3. Supply required reference files:
 - See following section for list of necessary files and recommended locations.
 4. Configure inputs:
