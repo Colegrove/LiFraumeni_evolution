@@ -1,6 +1,6 @@
 ## Figure 2A
 ## Mutation counts by gene in coding regions of the CHIP panel
-## generate x-axis labels in skyscraper_blood_ms.R first
+## generate x-axis labels in tp53_skyscraper_blood.R first
 
 ## devDNA and non-buffy coat blood samples for comparison
 samples_all_exclude <- c("DNA03980_S17.1", "DNA03965_S30_S31.1", "DNA03966_S32.1", "DevDNA1_S1.1")
@@ -21,7 +21,7 @@ mutationCounts <-
   Subject, levels = c("UW volunteer 1", "UW volunteer 2", "UW volunteer 3", "UW volunteer 4", "Patient", "Family member A", "Family member B", "UW volunteer 5", "Family member C", "UW volunteer 6", "UW volunteer 7")
   ))
 
-## ann_wide from skyscraper_blood_ms.R
+## ann_wide from tp53_skyscraper_blood.R
 mutationCounts <- mutationCounts %>%
   left_join(ann_wide) %>%
   ungroup() %>%
@@ -87,7 +87,7 @@ mutationCount_plot <- mutationCounts %>%
 show(mutationCount_plot)
 
 
-## generate from skyscraper_ms3A.R
+## generate from tp53_skyscraper_blood.R
 
 p_age <- p_age + theme(
   legend.margin = margin(l=-8, t=5, r=0, b=0),

@@ -15,7 +15,7 @@ sample_map <- read_delim(sample_id_mapping_path, delim = "\t", quote="\"") %>%
 GEOM_POINT_SIZE = 1.5
 
 
-### generate from MF_tp53_coding_non_coding_ms_2BC_v4.R
+### generate from chip_mf_coding_noncoding.R
 MF_CHIP_genic
 
 ###############################################################################

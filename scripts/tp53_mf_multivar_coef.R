@@ -1,6 +1,6 @@
 ### multiple regression analysis TP53 only
 
-## generate mutFreq_combined from mutation_frequencies_blood_CHIP_ms_2BC_v3.R
+## generate mutFreq_combined from chip_mf_coding_noncoding.R
 
 # helper to encode and fit
 mutFreq_prep_CHIP_encode <- mutFreq_prep %>%

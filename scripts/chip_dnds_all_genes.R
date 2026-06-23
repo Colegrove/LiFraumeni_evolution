@@ -2,7 +2,7 @@
 #### 28 Jul 2025
 #### dN/dS of chip genes using a naive method
 
-### input all possible mutations file all_possible_muts_annotated.R
+### input all possible mutations file chip_dnds_target_annotate.R
 
 all_possible_muts_path <- file.path("inputs/all_muts_annotated.tsv.gz")
 

@@ -1,6 +1,6 @@
 
 ### script to calculate and plot single regressions for MF and MB by gene
-## First generate CHIP_muts_by_gene_non_coding.csv from MF_blood_coding_noncoding_ms_2BC_v4.R
+## First generate CHIP_muts_by_gene_non_coding.csv from chip_mf_coding_noncoding.R
 
 coding_path <- "results/CHIP_muts_by_gene.csv"
 path = coding_path

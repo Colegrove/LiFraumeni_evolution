@@ -1,5 +1,5 @@
 ## Reformats the VEP annotated all mutations file and counts syn/non-syn
-## Run all_possible_target_mutations.R
+## Run chip_dnds_target_sites.R
 ## Use Ensembl VEP webtool to annotate consequences
 
 

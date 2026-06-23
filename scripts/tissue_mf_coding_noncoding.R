@@ -228,7 +228,7 @@ MF_ratio_tissues
 MF_tissue_groups
 
 
-## from skyscraper_tissues_ms_4A.R
+## from tissue_skyscraper.R
 x_order_saved <- levels(skyscraper_prep$Tissue_ordered)
 
 

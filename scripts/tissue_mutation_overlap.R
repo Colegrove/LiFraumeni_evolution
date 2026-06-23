@@ -181,7 +181,7 @@ show(heatmap_codon)
 ggsave("results/Manuscript_figures/Fig_4/tissue_mutation_overlap_heatmap.png", heatmap_codon, width = 3.75, height = 1, units = "in", dpi = 300)
 
 ###########
-# Stack with the skyscraper_tissues_ms_4A.R plot
+# Stack with the tissue_skyscraper.R plot
 ###########
 
 shared_x_scale <- scale_x_discrete(

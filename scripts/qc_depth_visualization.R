@@ -1,6 +1,6 @@
 #### Figure 1D 
 #### sequencing depth visualization
-#### To generate depth panel file first run depth_by_panel_S1.R
+#### To generate depth panel file first run qc_depth_by_panel.R
 
 
 ## sequencing depth information
