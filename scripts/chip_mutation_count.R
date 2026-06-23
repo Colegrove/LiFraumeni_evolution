@@ -128,7 +128,6 @@ combined_plot_legend <- (mutationCount_plot / annot_block) +
 combined_plot_legend
 
 #ggsave("results/CHIP_numberMutations_annotated.png", combined_plot_legend, width = 4, height = 3, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_2/chip_mutation_count.png", combined_plot, width = 4, height = 3, units = "in", dpi = 300)
 
 
 mutationCount_plot_crop <- mutationCount_plot + theme(axis.title.y = element_blank())

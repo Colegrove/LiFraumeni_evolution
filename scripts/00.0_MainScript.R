@@ -148,6 +148,8 @@ source("scripts/tissue_variant_types.R")
 source("scripts/tissue_mutation_overlap.R")
 ## cross-tissue contamination filter: S6 (must precede tissue_dnv, which overwrites skyscraper_prep)
 source("scripts/supp_contamination.R")
+## mutation overlap all tissues: S7 (must precede tissue_dnv, which overwrites skyscraper_prep)
+source("scripts/supp_tissue_overlap.R")
 ## dinucleotide variants: 4B
 source("scripts/tissue_dnv.R")
 ## coding vs noncoding MF: 4C
@@ -158,8 +160,6 @@ source("scripts/tissue_mutsigs.R")
 source("scripts/tissue_lollipop.R")
 ## dN/dS across tissue groups: 4I
 source("scripts/tissue_dnds.R")
-## mutation overlap all tissues: S7
-source("scripts/supp_tissue_overlap.R")
 ## 181 LFS mutation frequency: S5
 source("scripts/supp_lfs_181_freq.R")
 ## phasing: 4K
