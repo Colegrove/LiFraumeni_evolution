@@ -1,5 +1,25 @@
 ## Li-Fraumeni evolution main script
 
+## Create output directories ####
+output_dirs <- c(
+  "results",
+  "results/Manuscript_figures",
+  "results/Manuscript_figures/Fig_1",
+  "results/Manuscript_figures/Fig_2",
+  "results/Manuscript_figures/Fig_3",
+  "results/Manuscript_figures/Fig_4",
+  "results/Manuscript_figures/Fig_S1",
+  "results/Manuscript_figures/Fig_S2",
+  "results/Manuscript_figures/Fig_S3",
+  "results/Manuscript_figures/Fig_S4",
+  "results/Manuscript_figures/Fig_S5",
+  "results/Manuscript_figures/Fig_S6",
+  "results/Manuscript_figures/Fig_S7",
+  "results/Manuscript_figures/revisions",
+  "results/Manuscript_tables"
+)
+invisible(lapply(output_dirs, dir.create, showWarnings = FALSE, recursive = TRUE))
+
 ## Load Modules ####
 library("tidyverse")
 library("cowplot")
@@ -30,9 +50,12 @@ inputs <- read_delim("processing_config.txt", delim="=", col_names = FALSE, comm
 sample_data <- read_csv(inputs$extra_data_file)
 
 ## Load Functions####
-source("scripts/01.1.04_loadMaf.R")
-source("scripts/01.1.07_loadBed.R")
-source("scripts/skyscraper_color.R")
+source("scripts/fn_load_maf.R")
+source("scripts/fn_load_bed.R")
+source("scripts/color_scale.R")
+
+## Shared constants (tissue lists, subject groupings, gene panels, palettes) ####
+source("scripts/00.1_SharedConstants.R")
 
 # variant classification table renames subvariants to "intron", "exon", etc.
 variant_clasification_table = read_delim(inputs$varClassTrans) 
@@ -51,113 +74,96 @@ targ_bed12_MUT <- loadBed(inputs$bed12_MUT)
 targ_bed6_MUT <- loadBed(inputs$bed6_MUT)
 
 # Convert genome.mut to depth file
-source("scripts/02.1.0_Mut2Depth.R")
-source("scripts/combine_mafFiles.R")
+source("scripts/data_mut_to_depth.R")
+source("scripts/combine_maf.R")
 # Read in Depth
-source("scripts/02.1.1_LoadDepth.R")
-## filter out samples that do not contain depth requirements 
-source("scripts/02.1.2_FilterDepth.R")
+source("scripts/data_load_depth.R")
+## filter out samples that do not contain depth requirements
+source("scripts/data_filter_depth.R")
 
 # Read in MAF
-source("scripts/02.4.1_LoadMaf.R")
-source("scripts/02.4.2_FiltMaf.R")
+source("scripts/data_load_maf.R")
+source("scripts/data_filter_maf.R")
 
 # assign coding regions and repeat masking filter
-source("scripts/apply_coding_depth.R")
+source("scripts/annotate_coding_depth.R")
 
 # filter variants that existed at high VAF in other samples
-source("scripts/snp_cross_contamination.R")
+source("scripts/cross_contamination_filter.R")
 
-######## Depth analysis Fig 1
+######## Depth QC (Fig 1, S1, Table S4)
+source("scripts/qc_depth_by_panel.R")
+source("scripts/qc_depth_visualization.R")
 
-## S1 and Table S4
-source("scripts/depth_by_panel_S1.R")
-# Fig 1
-source("scripts/depth_visualization_ms_1D.R")
-
-######## Blood analysis
-## MF CHIP regression: 2BD
-source("scripts/MF_blood_coding_noncoding_ms_2BC_v4.R")
-## multiple regression: 2CE
-source("scripts/ms_2DE_coefficient.R")
-# Fig S3
-source("scripts/MB_blood_coding_supp_v4.R")
-## TP53 regression: 3EF
-source("scripts/MF_tp53_coding_noncoding_ms_3BC_v4.R")
-## TP53 multiple regression: 3GH
-source("scripts/ms_3DE_coefficient_v2.R")
-
-## plot single regression genes coding and non-coding
-## Figure S2, Table SX
+######## CHIP blood analysis (Fig 2, S2, S3)
+## MF regression: 2BC
+source("scripts/chip_mf_coding_noncoding.R")
+## multivariate regression coefficients: 2DE
+source("scripts/chip_mf_multivar_coef.R")
+## per-gene regression plots: S2
 coding = FALSE
-source("scripts/regression_genes_plot_supp_v2.R")
+source("scripts/supp_regression_genes.R")
 coding = TRUE
-source("scripts/regression_genes_plot_supp_v2.R")
-
+source("scripts/supp_regression_genes.R")
 ## Table S3
-source("scripts/supp_table_sequencing_overlap.R")
+source("scripts/supp_table_overlap.R")
+## clone size by VAF: 3A (sourced here; provides objects used by chip_mutation_count)
+source("scripts/tp53_skyscraper_blood.R")
+## mutation counts per patient: 2A
+source("scripts/chip_mutation_count.R")
+## mutation signatures: 2F
+source("scripts/chip_mutsigs.R")
+## SBS strand spectra: 2G
+source("scripts/chip_sbsg_spectra.R")
+## dN/dS all CHIP genes: 2H
+source("scripts/chip_dnds_target_sites.R")
+source("scripts/chip_dnds_target_annotate.R")
+source("scripts/chip_dnds_all_genes.R")
+## mutation burden regression: S3
+source("scripts/supp_chip_mutation_burden.R")
 
-# Figure 3A
-source("scripts/skyscraper_blood_ms_3A.R")
-# Figure 2A
-source("scripts/mutation_count_CHIP_ms_2A.R")
+######## TP53 blood analysis (Fig 3, S4)
+## MF regression: 3BC
+source("scripts/tp53_mf_coding_noncoding.R")
+## multivariate regression coefficients: 3DE
+source("scripts/tp53_mf_multivar_coef.R")
+## lollipop: 3B
+source("scripts/tp53_lollipop_blood.R")
+## coding/noncoding MF ratio: 3F
+source("scripts/tp53_mf_ratio.R")
+## dN/dS by LFS/chemo group: 3J
+source("scripts/tp53_dnds_blood.R")
+## DBD AlphaMissense pathogenicity: 3C/D & 4F/G
+source("scripts/tp53_binding_domain.R")
+## AlphaMissense annotation + grouped plot: 3K, S4
+source("scripts/tp53_annotate_alphamissense.R")
+source("scripts/supp_tp53_alphamissense.R")
 
-## TP53 MF coding/non-coding
-
-######## Tissue analysis
-### 4A and 4H
-source("scripts/skyscraper_tissues_ms_4A.R")
-source("scripts/variant_types_tissues_ms_4A.R")
-source("scripts/mutation_tissue_overlap_ms_4A.R")
-### S6
-source("scripts/blood_contamination_tissues_supp.R")
-
-## Figure 4C and Table S10
-source("scripts/coding_non_coding_tissues_MF_ms_4D.R")
-
-## Figure S7
-source("scripts/mutation_tissue_overlap_all_supp.R")
-
-## 3C/D & 4F/G
-source("scripts/TP53_binding_domain_ms.R")
-
-## 3K & S4
-source("scripts/apply_all_alphamissense.R")
-source("scripts/Alphamissense_grouped_ms_3_CHIP_supp.R")
-
-## Fig 4D
-source("scripts/mutsigs_tissues_ms.R")
-## Fig 2F
-source("scripts/mutsigs_blood_ms.R")
-## Fig 2G
-source("scripts/SBSG_spectra_plot.R")
-## Fig 2H
-source("scripts/all_possible_target_mutations.R")
-source("scripts/all_possible_muts_annotations.R")
-source("scripts/dnds_blood_ms_2E.R")
-## Fig 3B
-source("scripts/lollipop_blood_ms_3_v2.R")
-## Fig 4E
-source("scripts/lollipop_tissue_ms_4_v2.R")
-## Fig 3I
-source("scripts/MF_ratio_tp53_ms_3F.R")
-## Fig 3J
-source("scripts/dnds_blood_TP53_grouped_ms_3.R")
-## Fig 4B
-source("scripts/DNV_tissues_ms_4B.R")
-## Fig 4I
-source("scripts/dnds_classic_tissues_grouped_ms.R")
-
-## Fig S5
-source("scripts/181_LFS_frequency_supp.R")
-
-## Fig 4K
-###### Note: To generate this figure, an external python script must be run.
-###### First, run close_muts_181.R
-###### Second, run phasing_tp53_181_indels.py in python.
-###### Third, run phasing_tissue_ms_4G.R
-
-source("scripts/close_muts_181.R")
-source("scripts/phasing_tissue_ms_4G.R")
-
-
+######## Tissue analysis (Fig 4, S5, S6, S7)
+## clone size by VAF across tissues: 4A
+source("scripts/tissue_skyscraper.R")
+## SNV/indel proportions: 4H
+source("scripts/tissue_variant_types.R")
+## mutation sharing heatmap: 4A/4G
+source("scripts/tissue_mutation_overlap.R")
+## cross-tissue contamination filter: S6 (must precede tissue_dnv, which overwrites skyscraper_prep)
+source("scripts/supp_contamination.R")
+## dinucleotide variants: 4B
+source("scripts/tissue_dnv.R")
+## coding vs noncoding MF: 4C
+source("scripts/tissue_mf_coding_noncoding.R")
+## mutation signatures: 4D
+source("scripts/tissue_mutsigs.R")
+## lollipop: 4E
+source("scripts/tissue_lollipop.R")
+## dN/dS across tissue groups: 4I
+source("scripts/tissue_dnds.R")
+## mutation overlap all tissues: S7
+source("scripts/supp_tissue_overlap.R")
+## 181 LFS mutation frequency: S5
+source("scripts/supp_lfs_181_freq.R")
+## phasing: 4K
+## Note: an external python script must be run between these two:
+##   tissue_phasing_prepare.R → phasing_tp53_181_indels.py → tissue_phasing.R
+source("scripts/tissue_phasing_prepare.R")
+source("scripts/tissue_phasing.R")

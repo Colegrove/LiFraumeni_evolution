@@ -1,18 +1,6 @@
 # ## Li-Fraumeni mutation frequencies tp53 coding/non-coding
 
 
-### family member and control samples
-family <- c("Family member A", "Family member B", "Family member C")
-mstp <- c("UW volunteer 1", "UW volunteer 2", "UW volunteer 3", "UW volunteer 4", "UW volunteer 5", "UW volunteer 6", "UW volunteer 7")
-lfs_subjects = c("Patient", "Family member A", "Family member C")
-ctx_subjects = c("Patient", "UW volunteer 7")
-family_patient_blood <- c("Family member A", "Family member B", "Family member C", "Patient")
-family_patient_blood_samples <- c("PBMC", "Buffy coat")
-
-CHIP_genes <- c("NRAS", "BRINP3", "DNMT3A", "IDH1", "GATA2", "KIT", "TET2", "NPM1", 
-                "EZH2", "RAD21", "HNRNPK", "PTEN", "SMC3", "WT1", "KMT2A", "CBL", "KRAS", 
-                "PTPN11", "FLT3", "IDH2", "MYH11", "CEBPA", "ASXL1", "RUNX1", "U2AF1", "SMC1A", 
-                "STAG2", "PHF6", "TP53")
 
 sample_id_mapping_path <- "inputs/sampleID_mapping.txt"
 sample_map <- read_delim(sample_id_mapping_path, delim = "\t", quote="\"") %>%
@@ -26,17 +14,6 @@ sample_map <- read_delim(sample_id_mapping_path, delim = "\t", quote="\"") %>%
 
 GEOM_POINT_SIZE = 1.5
 
-age_map <- c("UW volunteer 1" = 25,
-             "UW volunteer 2" = 30,
-             "UW volunteer 3" = 27,
-             "UW volunteer 4" = 25,
-             "Patient" = 34,
-             "Family member A" = 39,
-             "Family member B" = 61,
-             "UW volunteer 5" = 37,
-             "Family member C" = 69,
-             "UW volunteer 6" = 60,
-             "UW volunteer 7" = 76)
 
 ### generate from MF_tp53_coding_non_coding_ms_2BC_v4.R
 MF_CHIP_genic
@@ -218,6 +195,5 @@ plots <- plot_grid(
 combined_plots <- plot_grid(plots, legend_shared, ncol = 1, 
                             rel_heights = c(1.1,0.225))
 
-ggsave("results/MF_tp53_ms2BC.png", combined_plots, width = 3.5, height = 1.5, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_3/MF_tp53_ms2BC.png", combined_plots, width = 3.5, height = 1.5, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_3/tp53_mf_coding_noncoding.png", combined_plots, width = 3.5, height = 1.5, units = "in", dpi = 300)
 

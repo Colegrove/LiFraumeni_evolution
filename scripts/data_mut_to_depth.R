@@ -45,6 +45,11 @@ file_list <- c(
   "inputs/mafs/DNA04003_S29.1.consensus.variant-calls.genome.mut"
 )
 
+
+
+
+
+
 processed_tables <- list()
 if (! file.exists("inputs/mafs/combined_genome_pipeline.tsv") ) {
   for (file_path in file_list){

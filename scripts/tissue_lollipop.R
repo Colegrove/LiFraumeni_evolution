@@ -3,32 +3,59 @@
 # TP53 domains
 filteredDomains <- read_delim(inputs$domains_file)
 
-subjects_blood <- c("UW volunteer 1","UW volunteer 2","UW volunteer 3","UW volunteer 4",
-                    "UW volunteer 5","UW volunteer 6","UW volunteer 7",
-                    "Patient","Family member A","Family member C","Family member B")
+all_samples = c("All tissue-types",
+                "Whole blood",
+                "Buffy coat",
+                "Plasma",
+                "Bone marrow",
+                "Thyroid", 
+                "Mainstem bronchus",
+                "Lung", 
+                "Esophagus 1", 
+                "Esophagus 2", 
+                "Gastric 1",
+                "Gastric 2",
+                "Cardiac muscle",
+                "Spleen",
+                "Liver",
+                "Colon",
+                "Omentum",
+                "Peritoneum",
+                "Renal",
+                "Testis",
+                "Skeletal muscle",
+                "Skin",
+                "Skin, non-sun-exposed", 
+                "Mediastinal metastasis",
+                "Lung metastasis",
+                "Esophageal cancer 1",
+                "Esophageal cancer 2",
+                "Liver metastasis 1",
+                "Liver metastasis 2")
+
 ## input cosmic data
 cosmic_data <- read_delim("inputs/COSMIC/TP53_mutations_07OCT25_23_08_31.csv")
 cosmic_counts <- cosmic_data %>% 
   group_by(Position) %>% 
   summarise(count = sum(Count))
 
-blood_filtering <- maf_masked_coding %>% 
-  filter(Subject %in% subjects_blood) %>%
-  filter(Tissue %in% c("PBMC", "Buffy coat")) %>%
+tissue_filtering <- maf_masked_coding %>% 
+  filter(Subject == "Patient") %>%
+  filter(Tissue %in% all_samples) %>%
   filter(Hugo_Symbol == "TP53") %>%
   filter(!is.na(prot.pos)) %>% 
   filter(!is.na(exon_number)) %>%
   filter(Variant_Type=="SNP")
 
 gene <- "TP53"
-my_counts <- blood_filtering %>%
+my_counts <- tissue_filtering %>%
   filter(Hugo_Symbol == gene) %>%
   filter(!is.na(prot.pos)) %>%
   group_by(prot.pos) %>%
   summarize(Count = n(), .groups = "drop")
 
 
-#  Prepare cosmic counts 
+# ── Prepare cosmic counts ──
 cosmic_counts <- cosmic_data %>%
   group_by(Position) %>%
   summarise(Count = sum(Count), .groups = "drop") %>%
@@ -41,8 +68,8 @@ test_plot <- ggplot(my_counts) +
   geom_point(aes(x = prot.pos, y = Count), size = 0.2) +
   scale_x_continuous(limits = c(0, prot_len)) +
   scale_y_continuous(name = "Mutation\nCount", 
-                     limits = c(0,4),
-                     breaks = c(0, 1, 2, 3, 4)) +
+                     limits = c(0,20),
+                     breaks = c(0, 5, 10, 15, 20)) +
   theme_bw() +
   theme(
     axis.title.x = element_blank(),
@@ -126,6 +153,6 @@ lollipop_slide <- cowplot::plot_grid(
 show(lollipop_slide)
 
 
-#ggsave("results/lollipop_blood_ms_3B_v2.png", lollipop_slide, width = 3.75, height = 1.5, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_3/lollipop_blood_ms_3B_v2.png", lollipop_slide, width = 3.75, height = 1.5, units = "in", dpi = 300)
+#ggsave("results/lollipop_tissues_ms_4B_v2.png", lollipop_slide, width = 3.75, height = 1.5, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_4/tissue_lollipop.png", lollipop_slide, width = 3.75, height = 1.5, units = "in", dpi = 300)
 

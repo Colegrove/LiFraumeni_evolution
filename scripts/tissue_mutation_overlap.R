@@ -1,78 +1,4 @@
 
-tissue_order <- c("Whole blood", 
-                 "Buffy coat", 
-                 "Plasma", 
-                 "Bone marrow", 
-                 #"Buccal mucosa", 
-                 "Thyroid", 
-                 "Mainstem bronchus",
-                 "Lung", 
-                 "Esophagus 1", 
-                 "Esophagus 2", 
-                 "Gastric 1",
-                 "Gastric 2",
-                 "Cardiac muscle",
-                 "Spleen",
-                 "Liver",
-                 "Colon",
-                 "Omentum",
-                 "Peritoneum",
-                 "Renal",
-                 "Testis",
-                 "Skeletal muscle",
-                 "Skin",
-                 "Skin, non-sun-exposed",
-                 "Mediastinal metastasis",
-                 "Lung metastasis",
-                 "Esophageal cancer 1",
-                 "Esophageal cancer 2",
-                 "Liver metastasis 1",
-                 "Liver metastasis 2")
-
-cancer_samples <- c(
-  "Mediastinal metastasis",
-  "Lung metastasis",
-  "Esophageal cancer 1",
-  "Esophageal cancer 2",
-  "Liver metastasis 1",
-  "Liver metastasis 2"
-)
-
-tissue_abbreviations <- tribble(
-  ~Tissue,                   ~Tissue_abbr,
-  "Whole blood",             "WB",
-  "Buffy coat",              "Buffy",
-  "Plasma",                  "Plasma",
-  "Bone marrow",             "BM",
-  #"Buccal mucosa",           "Bucc",
-  "Thyroid",                 "Thyroid",
-  "Mainstem bronchus",       "Bronchus",
-  "Lung",                    "Lung",
-  "Esophagus 1",             "Esoph1",
-  "Esophagus 2",             "Esoph2",
-  "Gastric 1",               "Gast1",
-  "Gastric 2",               "Gast2",
-  "Cardiac muscle",          "Cardiac",
-  "Spleen",                  "Spleen",
-  "Liver",                   "Liver",
-  "Colon",                   "Colon",
-  "Omentum",                 "Omentum",
-  "Peritoneum",              "Peritoneum",
-  "Renal",                   "Renal",
-  "Testis",                  "Testis",
-  "Skeletal muscle",         "Skeletal",
-  "Skin",                    "Skin",
-  "Skin, non-sun-exposed",   "SkinNS",
-  "Mediastinal metastasis",  "Med Met",
-  "Lung metastasis",         "Lung Met",
-  "Esophageal cancer 1",     "Esoph Ca1",
-  "Esophageal cancer 2",     "Esoph Ca2",
-  "Liver metastasis 1",      "Liver Met1",
-  "Liver metastasis 2",      "Liver Met2",
-  "PBMC",                    "PBMC"
-)
-
-
 base_theme <- theme_minimal(base_size = 8) +
   theme(panel.grid = element_blank(),
         axis.title.x = element_blank(),
@@ -252,7 +178,7 @@ heatmap_codon <- ggplot(df_agg_top, aes(x = Tissue, y = protein_variant, fill = 
 show(heatmap_codon)
 
 #ggsave("results/mutation_heatmap_248_ms.png", heatmap_codon, width = 3.75, height = 1, units = "in")
-ggsave("results/Manuscript_figures/Fig_4/248_heatmap_ms_4G.png", heatmap_codon, width = 3.75, height = 1, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_4/tissue_mutation_overlap_heatmap.png", heatmap_codon, width = 3.75, height = 1, units = "in", dpi = 300)
 
 ###########
 # Stack with the skyscraper_tissues_ms_4A.R plot
@@ -319,8 +245,7 @@ tissue_depths <- final_masked_depth %>%
 ### add depth
 axis_table <- skyscraper_prep %>%
   distinct(Tissue, Subject, Tissue_ordered) %>%
-  left_join(tissue_depths, by = "Tissue") %>% 
-  filter(Tissue != "Buccal mucosa")
+  left_join(tissue_depths, by = "Tissue")
 skyscraper_slide <- skyscraper_slide + theme(axis.text.x = element_blank())
 
 p_depth <- ggplot(axis_table, aes(Tissue, " ", fill = mean_DP)) +
@@ -401,6 +326,6 @@ stacked_plot <- (skyscraper_slide / p_depth / mf_scale / variant_type_proportion
 stacked_plot
 #ggsave("results/skyscraper_overlap_tissues_ms_4AC.png", stacked_plot, width = 3.75, height = 3.25, units = "in")
 #ggsave("results/skyscraper_overlap_tissues_ms_4AC.png", stacked_plot, width = 4, height = 3.25, units = "in")
-ggsave("results/Manuscript_figures/Fig_4/skyscraper_overlap_tissues_ms_4A.png", stacked_plot, width = 3.75, height = 3.25, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_4/tissue_mutation_overlap.png", stacked_plot, width = 3.75, height = 3.25, units = "in", dpi = 300)
 
 

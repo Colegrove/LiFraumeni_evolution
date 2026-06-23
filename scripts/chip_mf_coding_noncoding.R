@@ -1,17 +1,5 @@
 # ## Li-Fraumeni mutation frequencies all chip genes
 
-### family member and control samples
-family <- c("Family member A", "Family member B", "Family member C")
-mstp <- c("UW volunteer 1", "UW volunteer 2", "UW volunteer 3", "UW volunteer 4", "UW volunteer 5", "UW volunteer 6", "UW volunteer 7")
-lfs_subjects = c("Patient", "Family member A", "Family member C")
-ctx_subjects = c("Patient", "UW volunteer 7")
-family_patient_blood <- c("Family member A", "Family member B", "Family member C", "Patient")
-family_patient_blood_samples <- c("PBMC", "Buffy coat")
-
-CHIP_genes <- c("NRAS", "BRINP3", "DNMT3A", "IDH1", "GATA2", "KIT", "TET2", "NPM1", 
-                "EZH2", "RAD21", "HNRNPK", "PTEN", "SMC3", "WT1", "KMT2A", "CBL", "KRAS", 
-                "PTPN11", "FLT3", "IDH2", "MYH11", "CEBPA", "ASXL1", "RUNX1", "U2AF1", "SMC1A", 
-                "STAG2", "PHF6", "TP53")
 
 sample_id_mapping_path <- "inputs/sampleID_mapping.txt"
 sample_map <- read_delim(sample_id_mapping_path, delim = "\t", quote="\"") %>%
@@ -25,17 +13,6 @@ sample_map <- read_delim(sample_id_mapping_path, delim = "\t", quote="\"") %>%
 
 GEOM_POINT_SIZE = 1.5
 
-age_map <- c("UW volunteer 1" = 25,
-             "UW volunteer 2" = 30,
-             "UW volunteer 3" = 27,
-             "UW volunteer 4" = 25,
-             "Patient" = 34,
-             "Family member A" = 39,
-             "Family member B" = 61,
-             "UW volunteer 5" = 37,
-             "Family member C" = 69,
-             "UW volunteer 6" = 60,
-             "UW volunteer 7" = 76)
 
 ## by gene
 chip_depths <- final_masked_depth %>% 
@@ -302,21 +279,21 @@ if(non_coding_set == 0){
   plot_mutFreq = mutFreq_prep %>% filter(coding == "non-coding-total")
   ylimits = c(1.3e-7, 4.2e-7)
   ylabel = "Non-coding\nCHIP + MUT MF"
-  file_out = "MF_CHIP_ms2BC_total_noncoding.png"
+  file_out = "chip_mf_total_noncoding.png"
 }
 if(non_coding_set == 1){
   lm_model <- lm(mutFreq ~ age, data = mutFreq_prep %>% filter(coding == "non-coding-MUT"))
   plot_mutFreq = mutFreq_prep %>% filter(coding == "non-coding-MUT")
   ylimits = c(1.3e-7, 5e-7)
   ylabel = "Mutagenesis\nmutation frequency"
-  file_out = "MF_CHIP_ms2BC_MUTonly.png"
+  file_out = "chip_mf_mut_only.png"
 }
 if(non_coding_set == 2){
   lm_model <- lm(mutFreq ~ age, data = mutFreq_prep %>% filter(coding == "non-coding-CHIP"))
   plot_mutFreq = mutFreq_prep %>% filter(coding == "non-coding-CHIP")
   ylimits = c(1e-7, 3e-7)
   ylabel = "non-coding\nCHIP MF"
-  file_out = "MF_CHIP_ms2BC_CHIPonly.png"
+  file_out = "chip_mf_chip_only.png"
 }
 
 model_summary <- summary(lm_model)

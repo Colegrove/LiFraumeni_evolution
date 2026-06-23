@@ -217,7 +217,7 @@ burden_age_supp <- burden_age + supp_theme()
 height <- 6
 width <- 6
 if(coding){
-  ggsave(filename = "results/Manuscript_figures/Fig_S2/MF_by_gene_supp_S2.png", freq_age_supp, height = height, width = width)
+  ggsave(filename = "results/Manuscript_figures/Fig_S2/supp_regression_genes.png", freq_age_supp, height = height, width = width)
   } else {
   ggsave(filename = 'results/gene_mutFreq_by_age_non_coding.png', freq_age_supp, height = height, width = width)
     }

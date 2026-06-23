@@ -1,10 +1,9 @@
 ## Li-Fraumeni skyscraper plot
 
-non_cancer_samples = c("Whole blood", 
-                       "Buffy coat", 
-                       "Plasma", 
-                       "Bone marrow", 
-                       "Buccal mucosa", 
+non_cancer_samples = c("Whole blood",
+                       "Buffy coat",
+                       "Plasma",
+                       "Bone marrow",
                        "Thyroid", 
                        "Mainstem bronchus",
                        "Lung", 
@@ -33,11 +32,10 @@ cancer_samples = c("All tissue-types",
                    "Liver metastasis 2")
 
 
-tissue_order <- c("Whole blood", 
-                  "Buffy coat", 
-                  "Plasma", 
-                  "Bone marrow", 
-                  "Buccal mucosa", 
+tissue_order <- c("Whole blood",
+                  "Buffy coat",
+                  "Plasma",
+                  "Bone marrow",
                   "Thyroid", 
                   "Mainstem bronchus",
                   "Lung", 

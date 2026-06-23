@@ -54,7 +54,7 @@ metadata <- tribble(
 
 tissue_order <- c(
   "Bone marrow", "Whole blood","Plasma", "Buffy coat", "PBMC",
-  "Buccal mucosa", "Thyroid", "Mainstem bronchus", "Lung",
+  "Thyroid", "Mainstem bronchus", "Lung",
   "Esophagus 1", "Esophagus 2", "Gastric 1", "Gastric 2",
   "Cardiac muscle", "Spleen", "Liver", "Colon",
   "Omentum", "Peritoneum", "Renal", "Testis",
@@ -194,5 +194,4 @@ depth_plot_split <- ggplot(tissue_information_depths_grouped,
   )
 
 depth_plot_split
-ggsave("results/depth_schematic.png", depth_plot_split, height = 1.9, width = 4.8)
 ggsave("results/Manuscript_figures/Fig_1/depth_schematic.png", depth_plot_split, width = 4.8, height = 1.8, units = "in", dpi = 300)

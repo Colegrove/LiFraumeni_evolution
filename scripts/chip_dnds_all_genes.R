@@ -39,9 +39,7 @@ observed_all_LFS <- maf_masked_coding %>%
     type = case_when(
       Variant_Classification %in% c("Silent") ~ "synonymous",
       Variant_Classification %in% c(
-        "Missense_Mutation", "Nonsense_Mutation", 
-        "Frame_Shift_Del", "Frame_Shift_Ins", 
-        "In_Frame_Ins", "In_Frame_Del", 
+        "Missense_Mutation", "Nonsense_Mutation",
         "Nonstop_Mutation", "Splice_Site", "Splice_Region"
       ) ~ "nonsynonymous",
       TRUE ~ "exclude"
@@ -133,11 +131,6 @@ dnds_all_LFS <- dnds_all_LFS %>%
   mutate(total_mut = syn_obs + nonsyn_obs) %>%
   mutate(label_fraction = paste0(nonsyn_obs, "\n―\n", syn_obs))
 
-group_colors <- c(
-  "non-LFS" = "#44AA99",
-  "LFS"     = "#882255"
-)
-
 dnds_all_LFS <- dnds_all_LFS %>% left_join(boot_iqr, by=c("SYMBOL", "Group"))
 dnds_all_LFS
 ### plot 
@@ -145,22 +138,22 @@ patient_labels <- c("Family member A" = "LFS02", "Family member C" = "LFS03", "P
 pd <- position_dodge(width = 0.9)
 breaks <- c(0.25, 0.5, 1, 2, 4, 8, 16, 32)
 breaks <- c(0.25, 1, 4, 16)
-dnds_classic <- ggplot(dnds_all_LFS, aes(x = SYMBOL, y = dnds, fill = Group)) +
-  geom_col(position = position_dodge(width = 0.9), width = 0.8) +
+dnds_classic <- ggplot(dnds_all_LFS, aes(x = SYMBOL, y = dnds, color = Group)) +
   geom_hline(yintercept = 1, linetype = "dotted", color = "black") +
   geom_errorbar(data = boot_iqr,
-                aes(x = SYMBOL, fill = Group, ymin = dnds_q25, ymax = dnds_q75),
+                aes(x = SYMBOL, color = Group, ymin = dnds_q25, ymax = dnds_q75),
                 position = pd, width = 0.2, inherit.aes = FALSE, na.rm = TRUE) +
+  geom_point(position = pd, size = 1.5) +
   geom_text(
-    aes(y = -0.5, label = label_fraction),
-    position = position_dodge(width = 1),
-    vjust = 1,
-    hjust = 0.5,
-    size = 8*25.4/72.27, 
-    lineheight = 0.5
+    aes(y = -0.5, label = label_fraction, group = Group),
+    position = position_dodge(width = 0.9),
+    vjust = 1, hjust = 0.5,
+    size = 8*25.4/72.27,
+    lineheight = 0.5,
+    color = 'black'
   ) +
   scale_y_continuous(limits = c(-6, 76), breaks = c(0,1,2,3,4,5), labels = c(0,1,2,3,4,5)) +
-  scale_fill_manual(values = group_colors) +
+  scale_color_manual(values = group_colors) +
   labs(x = "Gene", y = "dN/dS") +
   theme_minimal() +
   theme(
@@ -188,6 +181,6 @@ dnds_classic
 
 
 #ggsave("results/dnds_chip_ms.png", dnds_classic, width = 3.5, height = 1.5, units = "in", dpi = 300)
-file_out = "dnds_chip_ms_2.png"
+file_out = "chip_dnds_all_genes.png"
 ggsave(paste0("results/Manuscript_figures/Fig_2/", file_out), dnds_classic, width = 3.5, height = 1.5, units = "in", dpi = 300)
 

@@ -2,16 +2,8 @@
 ## Mutation counts by gene in coding regions of the CHIP panel
 ## generate x-axis labels in skyscraper_blood_ms.R first
 
-family <- c("Family member A", "Family member B", "Family member C")
-family_patient_blood <- c("Family member A", "Family member B", "Family member C", "Patient")
-family_patient_blood_samples <- c("PBMC", "Buffy coat")
 ## devDNA and non-buffy coat blood samples for comparison
 samples_all_exclude <- c("DNA03980_S17.1", "DNA03965_S30_S31.1", "DNA03966_S32.1", "DevDNA1_S1.1")
-
-CHIP_genes <- c("NRAS", "BRINP3", "DNMT3A", "IDH1", "GATA2", "KIT", "TET2", "NPM1", 
-                "EZH2", "RAD21", "HNRNPK", "PTEN", "SMC3", "WT1", "KMT2A", "CBL", "KRAS", 
-                "PTPN11", "FLT3", "IDH2", "MYH11", "CEBPA", "ASXL1", "RUNX1", "U2AF1", "SMC1A", 
-                "STAG2", "PHF6", "TP53")
 
 #######################################################
 ##### Number of mutations per subject
@@ -136,7 +128,7 @@ combined_plot_legend <- (mutationCount_plot / annot_block) +
 combined_plot_legend
 
 #ggsave("results/CHIP_numberMutations_annotated.png", combined_plot_legend, width = 4, height = 3, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_2/CHIP_mutation_count_ms_2A.png", combined_plot, width = 4, height = 3, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_2/chip_mutation_count.png", combined_plot, width = 4, height = 3, units = "in", dpi = 300)
 
 
 mutationCount_plot_crop <- mutationCount_plot + theme(axis.title.y = element_blank())
@@ -163,5 +155,5 @@ combined_plot_legend_crop <- (mutationCount_plot_crop / annot_block_crop) +
 combined_plot_legend_crop
 
 #ggsave("results/CHIP_numberMutations_annotated_crop.png", combined_plot_legend_crop, width = 3.85, height = 3, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_2/CHIP_mutation_count_cropped_ms_2A.png", combined_plot_legend_crop, width = 3.85, height = 3, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_2/chip_mutation_count_cropped.png", combined_plot_legend_crop, width = 3.85, height = 3, units = "in", dpi = 300)
 

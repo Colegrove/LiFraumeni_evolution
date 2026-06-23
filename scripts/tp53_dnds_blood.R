@@ -49,9 +49,7 @@ observed_all_LFS <- maf_masked_coding %>%
     type = case_when(
       Variant_Classification %in% c("Silent") ~ "synonymous",
       Variant_Classification %in% c(
-        "Missense_Mutation", "Nonsense_Mutation", 
-        "Frame_Shift_Del", "Frame_Shift_Ins", 
-        "In_Frame_Ins", "In_Frame_Del", 
+        "Missense_Mutation", "Nonsense_Mutation",
         "Nonstop_Mutation", "Splice_Site", "Splice_Region"
       ) ~ "nonsynonymous",
       TRUE ~ "exclude"
@@ -131,11 +129,6 @@ dnds_all_LFS <- dnds_all_LFS %>%
   mutate(total_mut = syn_obs + nonsyn_obs) %>%
   mutate(label_fraction = paste0(nonsyn_obs, "\n―\n", syn_obs))
 
-group_colors <- c(
-  "non-LFS" = "#44AA99",
-  "LFS"     = "#882255"
-)
-
 dnds_all_LFS <- dnds_all_LFS %>% left_join(boot_iqr, by=c("GENE", "Group"))
 
 pd <- position_dodge(width = 0.9)
@@ -196,18 +189,19 @@ color_scale <- scale_color_manual(
 dnds_all_LFS
 
 dnds_classic <- ggplot(dnds_all_LFS, aes(x = Group, y = dnds)) +
-  geom_col(position = position_dodge(width = 0.9), width = 0.8, aes(fill = fill_group, color = fill_group)) +
   geom_hline(yintercept = 1, linetype = "dotted", color = "black") +
   geom_errorbar(data = boot_iqr,
                 aes(x = Group, ymin = dnds_q25, ymax = dnds_q75),
                 position = pd, width = 0.2, inherit.aes = FALSE, na.rm = TRUE) +
+  geom_point(aes(color = fill_group, fill = fill_group), shape = 21, size = 2.5, stroke = 1) +
   geom_text(
     aes(y = -1, label = label_fraction),
     position = position_dodge(width = 1),
     vjust = 1,
     hjust = 0.5,
-    size = 8*25.4/72.27, 
-    lineheight = 0.5
+    size = 8*25.4/72.27,
+    lineheight = 0.5,
+    color = 'black'
   ) +
   fill_scale +
   color_scale +
@@ -231,17 +225,17 @@ dnds_classic <- ggplot(dnds_all_LFS, aes(x = Group, y = dnds)) +
 dnds_classic
 
 
-#ggsave("results/dnds_tp53_grouped_ms_3.png", dnds_classic, width = 2, height = 2.2, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_3/dnds_tp53_grouped_ms_3.png", dnds_classic, width = 2, height = 2.2, units = "in", dpi = 300)
+#ggsave("results/tp53_dnds_blood.png", dnds_classic, width = 2, height = 2.2, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_3/tp53_dnds_blood.png", dnds_classic, width = 2, height = 2.2, units = "in", dpi = 300)
 
 
-
+boot_iqr %>% filter( Group %in% c("LFS\nno-CTx", "non-LFS\nno-CTx"))
 dnds_classic_no_chemo <- ggplot(dnds_all_LFS %>% filter(Group %in% c("LFS\nno-CTx", "non-LFS\nno-CTx")), aes(x = Group, y = dnds)) +
-  geom_col(position = position_dodge(width = 0.9), width = 0.8, aes(fill = fill_group, color = fill_group) ) +
   geom_hline(yintercept = 1, linetype = "dotted", color = "black") +
-  geom_errorbar(data = boot_iqr %>% filter( Group %in% c("LFS\nno-CTx", "non-LFS\nno-CTx")),
+  geom_errorbar(data = boot_iqr %>% filter(Group %in% c("LFS\nno-CTx", "non-LFS\nno-CTx")),
                 aes(x = Group, ymin = dnds_q25, ymax = dnds_q75),
                 position = pd, width = 0.2, inherit.aes = FALSE, na.rm = TRUE) +
+  geom_point(aes(color = fill_group, fill = fill_group), shape = 21, size = 2.5, stroke = 1) +
   fill_scale +
   color_scale +
   # geom_text(
@@ -270,6 +264,6 @@ dnds_classic_no_chemo <- ggplot(dnds_all_LFS %>% filter(Group %in% c("LFS\nno-CT
     legend.text = element_text(size=8)
   )
 
-#dnds_classic_no_chemo
-#ggsave("results/dnds_tp53_nochemo_inset_ms_3.png", dnds_classic_no_chemo, width = 0.75, height = 0.75, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_3/dnds_tp53_nochemo_inset_ms_3.png", dnds_classic_no_chemo, width = 0.75, height = 0.75, units = "in", dpi = 300)
+show(dnds_classic_no_chemo)
+#ggsave("results/tp53_dnds_blood_nochemo_inset.png", dnds_classic_no_chemo, width = 0.75, height = 0.75, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_3/tp53_dnds_blood_nochemo_inset.png", dnds_classic_no_chemo, width = 0.75, height = 0.75, units = "in", dpi = 300)

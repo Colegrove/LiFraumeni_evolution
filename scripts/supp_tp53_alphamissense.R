@@ -141,7 +141,7 @@ combined <- obsv_am_blood_groups / prop_plot +
   plot_layout(heights = c(2, 1))
 
 combined
-ggsave("results/Manuscript_figures/Fig_S4/AlphaMissense_dist_proportion_supp.png", combined, width = 7, height = 3, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_S4/supp_tp53_alphamissense.png", combined, width = 7, height = 3, units = "in", dpi = 300)
 
 
 
@@ -183,6 +183,6 @@ obsv_am_blood_groups <- ggplot(am_groups %>% filter(group != "All possible"), ae
   )
 obsv_am_blood_groups
 
-#ggsave("results/AlphaMissense_tp53_ms_3.png", obsv_am_blood_groups, width = 3.5, height = 1.5, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_3/AlphaMissense_tp53_ms_3.png", obsv_am_blood_groups, width = 3.5, height = 1.5, units = "in", dpi = 300)
+#ggsave("results/tp53_alphamissense_blood.png", obsv_am_blood_groups, width = 3.5, height = 1.5, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_3/tp53_alphamissense_blood.png", obsv_am_blood_groups, width = 3.5, height = 1.5, units = "in", dpi = 300)
 

@@ -1,16 +1,16 @@
 ### TP53 binding domain analysis
 
+library(ggsignif)
 
 subjects_blood <- c("UW volunteer 1","UW volunteer 2","UW volunteer 3","UW volunteer 4",
                     "UW volunteer 5","UW volunteer 6","UW volunteer 7",
                     "Patient","Family member A","Family member C","Family member B")
 
 all_samples = c("All tissue-types",
-                "Whole blood", 
-                "Buffy coat", 
-                "Plasma", 
-                "Bone marrow", 
-                "Buccal mucosa", 
+                "Whole blood",
+                "Buffy coat",
+                "Plasma",
+                "Bone marrow",
                 "Thyroid", 
                 "Mainstem bronchus",
                 "Lung", 
@@ -63,37 +63,15 @@ tissue_filtering$group <- "Observed"
 all_missense$group <- "Not observed"
 combine_df <- bind_rows(tissue_filtering, all_missense)
 
-## plot all observed together
-obsv_am_tissue <- ggplot(combine_df, aes(x = group, y = am_pathogenicity, color = group)) +
-  geom_violin(
-    data = subset(combine_df, group == "Not observed"),
-    mapping = aes(x = group),
-    fill = "grey60", color = NA, alpha = 0.6, width = 0.8, trim = TRUE,
-    position = position_nudge(x = 0.25)
-  ) +
-  annotate("rect",
-           xmin = 0.75, xmax = 1.25,
-           ymin = -Inf, ymax = Inf,
-           fill = "white", color = NA) +
-  geom_jitter(width = 0.15, size = 2, alpha = 0.6) +
-  scale_x_discrete(
-    labels = c(
-      "Not observed" = "All possible\nSNVs",
-      "Observed (1 read)" = "Observed\n(1 read)",
-      "Observed (>1 read)" = "Observed\n(>1 read)"
-    )
-  ) +
-  scale_color_manual(values = c("Not observed" = "grey60", "Observed" = "#3182bd")) +
-  labs(y = "AlphaMissense\npathogenicity", x = NULL) +
-  theme_classic(base_size = 8) +
-  theme(
-    axis.title.y = element_text(size = 8),
-    axis.text.x  = element_text(size = 8),
-    axis.text.y  = element_text(size = 8),
-    legend.position = "none",
-    plot.margin = margin(2, 2, 2, 2, "pt")
+signif_stars <- function(p) {
+  dplyr::case_when(
+    p < 0.0001 ~ "***",
+    p < 0.01   ~ "**",
+    p < 0.05   ~ "*",
+    TRUE       ~ "ns"
   )
-obsv_am_tissue
+}
+
 ## separate large and small observed clones
 combine_df_large_clones <- combine_df %>%
   mutate(group = case_when(
@@ -117,6 +95,14 @@ n_all <- n_counts %>% filter(group == "Not observed") %>% pull(n)
 n_1 <- n_counts %>% filter(group == "Observed (1 read)") %>% pull(n)
 n_large <- n_counts %>% filter(group == "Observed (>1 read)") %>% pull(n)
 
+mw_1_tissue <- wilcox.test(
+  combine_df_large_clones %>% filter(group == "Not observed")      %>% pull(am_pathogenicity),
+  combine_df_large_clones %>% filter(group == "Observed (1 read)") %>% pull(am_pathogenicity)
+)
+mw_greaterthan1_tissue <- wilcox.test(
+  combine_df_large_clones %>% filter(group == "Not observed")       %>% pull(am_pathogenicity),
+  combine_df_large_clones %>% filter(group == "Observed (>1 read)") %>% pull(am_pathogenicity)
+)
 
 obsv_am_large_clones_tissue <- ggplot(combine_df_large_clones, aes(x = group, y = am_pathogenicity, color = group)) +
   geom_violin(
@@ -156,7 +142,23 @@ obsv_am_large_clones_tissue <- ggplot(combine_df_large_clones, aes(x = group, y 
       "Observed (>1 read)" = "Observed\n(>1 read)"
     )
   ) +
-  scale_y_continuous(limit = c(0,1), breaks = c(0, 0.5, 1), labels = c("0", "0.5", "1")) +
+  geom_signif(
+    comparisons  = list(
+      c("Not observed", "Observed (1 read)"),
+      c("Not observed", "Observed (>1 read)")
+    ),
+    annotations  = c(
+      signif_stars(mw_1_tissue$p.value),
+      signif_stars(mw_greaterthan1_tissue$p.value)
+    ),
+    y_position   = c(1.07, 1.17),
+    tip_length   = 0.02,
+    textsize     = 12 / 2.85,
+    vjust        = 0.6,
+    color        = "black"
+  ) +
+  scale_y_continuous(breaks = c(0, 0.5, 1), labels = c("0", "0.5", "1")) +
+  coord_cartesian(ylim = c(0, 1), clip = "off") +
   labs(y = "Pathogenicity score", x = NULL) +
   scale_x_discrete(
     labels = c(
@@ -171,8 +173,8 @@ obsv_am_large_clones_tissue <- ggplot(combine_df_large_clones, aes(x = group, y 
     axis.text.x  = element_text(size = 8),
     axis.text.y  = element_text(size = 8),
     legend.position = "none",
-    plot.margin = margin(2, 2, 2, 2, "pt")
-  ) 
+    plot.margin = margin(60, 2, 2, 2, "pt")
+  )
 
 obsv_am_large_clones_tissue
 
@@ -267,11 +269,11 @@ dbd_prop_tissues
 
 combine_dbd_tissues <- dbd_prop_tissues + obsv_am_large_clones_tissue +
   plot_layout(widths = c(0.61, 1)) &
-  theme(plot.margin = margin(2,2,2,1))
+  theme(plot.margin = margin(8,2,2,1))
 combine_dbd_tissues
 
-#ggsave("results/dbd_snvs_combined_ms_4.png", combine_dbd_tissues, width = 3.75, height = 1.5, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_4/dbd_snvs_combined_ms_4.png", combine_dbd_tissues, width = 3.75, height = 1.5, units = "in", dpi = 300)
+#ggsave("results/tp53_binding_domain_tissues.png", combine_dbd_tissues, width = 3.75, height = 1.5, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_4/tp53_binding_domain_tissues.png", combine_dbd_tissues, width = 3.75, height = 1.5, units = "in", dpi = 300)
 
 
 ################################################################################
@@ -291,37 +293,6 @@ blood_filtering$group <- "Observed"
 all_missense$group <- "Not observed"
 combine_df <- bind_rows(blood_filtering, all_missense)
 
-## plot all observed together
-obsv_am_blood <- ggplot(combine_df, aes(x = group, y = am_pathogenicity, color = group)) +
-  geom_violin(
-    data = subset(combine_df, group == "Not observed"),
-    mapping = aes(x = group),
-    fill = "grey60", color = NA, alpha = 0.6, width = 0.8, trim = TRUE,
-    position = position_nudge(x = 0.25)
-  ) +
-  annotate("rect",
-           xmin = 0.75, xmax = 1.25,
-           ymin = -Inf, ymax = Inf,
-           fill = "white", color = NA) +
-  geom_jitter(width = 0.15, size = 2, alpha = 0.6) +
-  scale_color_manual(values = c("Not observed" = "grey60", "Observed" = "#3182bd")) +
-  scale_x_discrete(
-    labels = c(
-      "Not observed" = "Not\nobserved",
-      "Observed (1 read)" = "Observed\n(1 read)",
-      "Observed (>1 read)" = "Observed\n(>1 read)"
-    )
-  ) +
-  labs(y = "AlphaMissense\npathogenicity", x = NULL) +
-  theme_classic(base_size = 8) +
-  theme(
-    axis.title.y = element_text(size = 8),
-    axis.text.x  = element_text(size = 8),
-    axis.text.y  = element_text(size = 8),
-    legend.position = "none",
-    plot.margin = margin(2, 2, 2, 2, "pt")
-  )
-obsv_am_blood
 ## separate large and small observed clones
 combine_df_large_clones <- combine_df %>%
   mutate(group = case_when(
@@ -336,6 +307,15 @@ n_counts <- combine_df_large_clones %>% group_by(group) %>% summarise(n=n())
 n_all <- n_counts %>% filter(group == "Not observed") %>% pull(n)
 n_1 <- n_counts %>% filter(group == "Observed (1 read)") %>% pull(n)
 n_large <- n_counts %>% filter(group == "Observed (>1 read)") %>% pull(n)
+
+mw_1_blood <- wilcox.test(
+  combine_df_large_clones %>% filter(group == "Not observed")      %>% pull(am_pathogenicity),
+  combine_df_large_clones %>% filter(group == "Observed (1 read)") %>% pull(am_pathogenicity)
+)
+mw_greaterthan1_blood <- wilcox.test(
+  combine_df_large_clones %>% filter(group == "Not observed")       %>% pull(am_pathogenicity),
+  combine_df_large_clones %>% filter(group == "Observed (>1 read)") %>% pull(am_pathogenicity)
+)
 
 obsv_am_large_clones_blood <- ggplot(combine_df_large_clones, aes(x = group, y = am_pathogenicity, color = group)) +
   geom_violin(
@@ -368,7 +348,23 @@ obsv_am_large_clones_blood <- ggplot(combine_df_large_clones, aes(x = group, y =
     "Observed (1 read)" = "#6baed6", 
     "Observed (>1 read)" = "#08519c" 
   )) +
-  scale_y_continuous(limit = c(0,1), breaks = c(0, 0.5, 1), labels = c("0", "0.5", "1")) +
+  geom_signif(
+    comparisons  = list(
+      c("Not observed", "Observed (1 read)"),
+      c("Not observed", "Observed (>1 read)")
+    ),
+    annotations  = c(
+      signif_stars(mw_1_blood$p.value),
+      signif_stars(mw_greaterthan1_blood$p.value)
+    ),
+    y_position   = c(1.07, 1.17),
+    tip_length   = 0.02,
+    textsize     = 12 / 2.85,
+    vjust        = 0.6,
+    color        = "black"
+  ) +
+  scale_y_continuous(breaks = c(0, 0.5, 1), labels = c("0", "0.5", "1")) +
+  coord_cartesian(ylim = c(0, 1), clip = "off") +
   scale_x_discrete(
     labels = c(
       "Not observed"       = paste0("All possible\nSNVs\nn = ", n_all),
@@ -383,8 +379,8 @@ obsv_am_large_clones_blood <- ggplot(combine_df_large_clones, aes(x = group, y =
     axis.text.x  = element_text(size = 8),
     axis.text.y  = element_text(size = 8),
     legend.position = "none",
-    plot.margin = margin(2, 2, 2, 2, "pt")
-  ) 
+    plot.margin = margin(60, 2, 2, 2, "pt")
+  )
 obsv_am_large_clones_blood
 
 
@@ -480,9 +476,9 @@ dbd_prop_blood
 
 combine_dbd_blood <- dbd_prop_blood + obsv_am_large_clones_blood +
   plot_layout(widths = c(0.61, 1)) &
-  theme(plot.margin = margin(2,2,2,1))
+  theme(plot.margin = margin(8,2,2,1))
 combine_dbd_blood
 
-#ggsave("results/dbd_snvs_combined_ms_3.png", combine_dbd_blood, width = 3.75, height = 1.5, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_3/dbd_snvs_combined_ms_3.png", combine_dbd_blood, width = 3.75, height = 1.5, units = "in", dpi = 300)
+#ggsave("results/tp53_binding_domain_blood.png", combine_dbd_blood, width = 3.75, height = 1.5, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_3/tp53_binding_domain_blood.png", combine_dbd_blood, width = 3.75, height = 1.5, units = "in", dpi = 300)
 

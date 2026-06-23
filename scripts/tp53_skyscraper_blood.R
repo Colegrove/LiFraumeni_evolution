@@ -51,12 +51,6 @@ ann_wide <- ann_wide %>%
 
 ann_wide
 
-family <- c("Family member A", "Family member B", "Family member C")
-mstp   <- c("UW volunteer 1","UW volunteer 2","UW volunteer 3","UW volunteer 4",
-            "UW volunteer 5","UW volunteer 6","UW volunteer 7")
-family_patient_blood         <- c("Family member A","Family member B","Family member C","Patient")
-family_patient_blood_samples <- c("PBMC","Buffy coat")
-
 skyscraper_prep <- maf_masked_coding %>%
   filter(Tissue %in% family_patient_blood_samples) %>%
   filter(Hugo_Symbol == "TP53") %>%
@@ -229,5 +223,5 @@ final_plot <- (skyscraper_inset / annot_block) +
   theme(plot.margin = margin(2,38,-5,9))
 final_plot
 
-#ggsave("results/blood_skyscraper_ms.png", final_plot, width = 3.75, height = 3.25, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_3/blood_skyscraper_ms.png", final_plot, width = 3.75, height = 3.25, units = "in", dpi = 300)
+#ggsave("results/tp53_skyscraper_blood.png", final_plot, width = 3.75, height = 3.25, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_3/tp53_skyscraper_blood.png", final_plot, width = 3.75, height = 3.25, units = "in", dpi = 300)

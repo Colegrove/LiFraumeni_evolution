@@ -186,8 +186,7 @@ legend_shared + theme(plot.margin = margin(0,0,0,0))
 combined_plot <- plot_grid(mutBurd_coding, CHIP_burden_plot_coding, legend_shared, ncol = 2, 
                             rel_heights = c(1.1,0.15))
 
-ggsave(paste0("results/", "MB_regression_supp.png"), combined_plot, width = 3.5, height = 3.5, units = "in", dpi = 300)
-ggsave(paste0("results/Manuscript_figures/Fig_S3/MB_regression.png"), combined_plot, width = 6, height = 3.5, units = "in", dpi = 300)
+ggsave(paste0("results/Manuscript_figures/Fig_S3/supp_chip_mutation_burden.png"), combined_plot, width = 6, height = 3.5, units = "in", dpi = 300)
 
 
 ## save supp table

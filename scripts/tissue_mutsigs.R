@@ -93,4 +93,4 @@ tissue_sigs <- ggplot(tissue_sigs_long, aes(x=Tissue_abbr, y=Count, fill = Signa
         axis.ticks.x = element_blank())
 
 #ggsave("results/mutsigs_tissues_ms.png", tissue_sigs, width = 3.75, height = 1.5, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_4/mutSigs_tissues_ms_4E.png",tissue_sigs, width = 3.75, height = 1.5, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_4/tissue_mutsigs.png",tissue_sigs, width = 3.75, height = 1.5, units = "in", dpi = 300)

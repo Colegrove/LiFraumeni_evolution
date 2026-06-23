@@ -17,6 +17,7 @@ ann_wide <- tibble::tibble(
     Depth = factor(Depth, levels = c("Low","High"))
   )
 
+maf_masked_coding
 unique_somatic <- maf_masked_coding %>%
   left_join(ann_wide %>% dplyr::select(Subject, SampleCode)) %>%
   mutate(SampleLabel = paste(SampleCode, Tissue, sep = ":")) %>%
@@ -122,3 +123,4 @@ maf_masked_coding <- maf_masked_coding %>%
     nm8_flagged %>% dplyr::select(mutPosition, Samp),
     by = c("mutPosition", "Samp")
   )
+

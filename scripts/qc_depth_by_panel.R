@@ -26,7 +26,7 @@ subj_abbr <- tribble(
 )
 tissue_order <- c(
   "Bone marrow", "Whole blood","Plasma", "Buffy coat", "PBMC",
-  "Buccal mucosa", "Thyroid", "Mainstem bronchus", "Lung",
+  "Thyroid", "Mainstem bronchus", "Lung",
   "Esophagus 1", "Esophagus 2", "Gastric 1", "Gastric 2",
   "Cardiac muscle", "Spleen", "Liver", "Colon",
   "Omentum", "Peritoneum", "Renal", "Testis",
@@ -204,8 +204,8 @@ plot_combine <- (depth_by_gene_color / depth_by_region) +
   plot_layout(guides = "collect")
 
 plot_combine
-#ggsave("./results/depth_region_mut_combine_S1.png", plot_combine, width = 6, height = 4)
-ggsave("results/Manuscript_figures/Fig_S1/depth_region_mut_combine_S1.png", plot_combine, width = 6, height = 4)
+#ggsave("./results/qc_depth_by_panel.png", plot_combine, width = 6, height = 4)
+ggsave("results/Manuscript_figures/Fig_S1/qc_depth_by_panel.png", plot_combine, width = 6, height = 4)
 
 ################ depth by individual (tp53 only)
 
@@ -246,7 +246,7 @@ chip_depths_subject <- chip_depths_subject %>%
     SampleLabel = fct_reorder(SampleLabel, OrderID, .fun = min) 
   )
 
-chip_depths_subject_tp53 <- chip_depths_subject %>% filter(plot_region == "TP53")
+chip_depths_subject_tp53 <- chip_depths_subject %>% filter(plot_region == "TP53") 
 
 depth_per_subject <- ggplot(chip_depths_subject_tp53, aes(x = SampleLabel, y = meanDP_subject)) +
   geom_point(size=1) +

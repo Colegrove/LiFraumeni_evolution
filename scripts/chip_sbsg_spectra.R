@@ -47,7 +47,6 @@ sbsG <- ggplot(sbsG_data, aes(x = Context, y = SBSG, fill = Substitution)) +
   ) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.02)))
 
-ggsave("results/sbsg_spectra.png", sbsG, height = 0.9, width = 4.4)
 
 
 sbsG <- ggplot(sbsG_data, aes(x = Context, y = SBSG, fill = Substitution)) +

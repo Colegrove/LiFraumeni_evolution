@@ -1,17 +1,5 @@
 #### coding non coding in Tissues
 
-### family member and control samples
-family <- c("Family member A", "Family member B", "Family member C")
-mstp <- c("UW volunteer 1", "UW volunteer 2", "UW volunteer 3", "UW volunteer 4", "UW volunteer 5", "UW volunteer 6", "UW volunteer 7")
-lfs_subjects = c("Patient", "Family member A", "Family member C")
-ctx_subjects = c("Patient", "UW volunteer 7")
-family_patient_blood <- c("Family member A", "Family member B", "Family member C", "Patient")
-family_patient_blood_samples <- c("PBMC", "Buffy coat")
-
-CHIP_genes <- c("NRAS", "BRINP3", "DNMT3A", "IDH1", "GATA2", "KIT", "TET2", "NPM1", 
-                "EZH2", "RAD21", "HNRNPK", "PTEN", "SMC3", "WT1", "KMT2A", "CBL", "KRAS", 
-                "PTPN11", "FLT3", "IDH2", "MYH11", "CEBPA", "ASXL1", "RUNX1", "U2AF1", "SMC1A", 
-                "STAG2", "PHF6", "TP53")
 
 sample_id_mapping_path <- "inputs/sampleID_mapping.txt"
 
@@ -192,48 +180,6 @@ mutFreq_prep <- rbind(mutFreq_prep, total_non_coding)
 ### Mutation frequency
 ###############################################################################
 
-tissue_categories <- tribble(
-  ~Tissue,                ~Category,
-  # Blood
-  "Whole blood",          "Blood",
-  "Buffy coat",           "Blood",
-  "Plasma",               "Blood",
-  "Bone marrow",          "Blood",
-  
-  # Solid tissues
-  "Thyroid",              "Solid",
-  "Mainstem bronchus",    "Solid",
-  "Lung",                 "Solid",
-  "Esophagus 1",          "Solid",
-  "Esophagus 2",          "Solid",
-  "Gastric 1",            "Solid",
-  "Gastric 2",            "Solid",
-  "Cardiac muscle",       "Solid",
-  "Spleen",               "Solid",
-  "Liver",                "Solid",
-  "Colon",                "Solid",
-  "Omentum",              "Solid",
-  "Peritoneum",           "Solid",
-  "Renal",                "Solid",
-  "Testis",               "Solid",
-  "Skeletal muscle",      "Solid",
-  "Skin, non-sun-exposed","Solid",
-  
-  # Sun-exposed skin
-  "Skin",                 "Sun-exposed skin",
-  
-  # Cancer
-  "Mediastinal metastasis","Cancer",
-  "Lung metastasis",      "Cancer",
-  "Esophageal cancer 1",  "Cancer",
-  "Esophageal cancer 2",  "Cancer",
-  "Liver metastasis 1",   "Cancer",
-  "Liver metastasis 2",   "Cancer",
-  
-  "All tissues",          "All"
-)
-
-
 MF_tissue_groups <- mutFreq_prep %>% 
   left_join(tissue_categories, by=c("tissue" = "Tissue"))
 
@@ -317,7 +263,6 @@ tissue_coding_non_MF <- ggplot(MF_tissue_groups %>% filter(coding == "coding" | 
     axis.title.x = element_blank()
   )
 
-ggsave("results/Tissues_coding_non_coding_MF_supp.png", tissue_coding_non_MF, width = 6, height = 4, units = "in", dpi = 300)
 
 MF_base <- MF_tissue_groups %>%
   filter(coding %in% c("coding", "non-coding-CHIP"))
@@ -379,7 +324,7 @@ TP53_MF_tissues <- ggplot(data = MF_tissue_groups_TP53_exclude_low_depth, aes(x 
 
 TP53_MF_tissues
 
-#ggsave("results/TP53_MF_Tissues_coding_non_coding_ms.png", TP53_MF_tissues, width = 3.75, height = 2, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_4/TP53_MF_Tissues_coding_non_coding_ms.png", TP53_MF_tissues, width = 3.75, height = 2, units = "in", dpi = 300)
+#ggsave("results/tissue_mf_coding_noncoding.png", TP53_MF_tissues, width = 3.75, height = 2, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_4/tissue_mf_coding_noncoding.png", TP53_MF_tissues, width = 3.75, height = 2, units = "in", dpi = 300)
 
 

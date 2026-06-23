@@ -1,68 +1,5 @@
 ## Li-Fraumeni skyscraper plot
 
-non_cancer_samples = c("Whole blood", 
-                       "Buffy coat", 
-                       "Plasma", 
-                       "Bone marrow", 
-                       "Buccal mucosa", 
-                       "Thyroid", 
-                       "Mainstem bronchus",
-                       "Lung", 
-                       "Esophagus 1", 
-                       "Esophagus 2", 
-                       "Gastric 1",
-                       "Gastric 2",
-                       "Cardiac muscle",
-                       "Spleen",
-                       "Liver",
-                       "Colon",
-                       "Omentum",
-                       "Peritoneum",
-                       "Renal",
-                       "Testis",
-                       "Skeletal muscle",
-                       "Skin",
-                       "Skin, non-sun-exposed")
-
-cancer_samples = c("All tissue-types",
-                   "Mediastinal metastasis",
-                   "Lung metastasis",
-                   "Esophageal cancer 1",
-                   "Esophageal cancer 2",
-                   "Liver metastasis 1",
-                   "Liver metastasis 2")
-blood_samples = c("Whole blood", "Bone marrow", "Plasma", "Buffy coat")
-
-tissue_order <- c("Whole blood", 
-                  "Buffy coat", 
-                  "Plasma", 
-                  "Bone marrow", 
-                  "Buccal mucosa", 
-                  "Thyroid", 
-                  "Mainstem bronchus",
-                  "Lung", 
-                  "Esophagus 1", 
-                  "Esophagus 2", 
-                  "Gastric 1",
-                  "Gastric 2",
-                  "Cardiac muscle",
-                  "Spleen",
-                  "Liver",
-                  "Colon",
-                  "Omentum",
-                  "Peritoneum",
-                  "Renal",
-                  "Testis",
-                  "Skeletal muscle",
-                  "Skin",
-                  "Skin, non-sun-exposed",
-                  "Mediastinal metastasis",
-                  "Lung metastasis",
-                  "Esophageal cancer 1",
-                  "Esophageal cancer 2",
-                  "Liver metastasis 1",
-                  "Liver metastasis 2")
- 
 abbreviations <- c("WB", "Buffy", "Plas", "BM", "Bucc", "Thyr", "Bron", "Lung",
                    "Eso1", "Eso2", "Gast1", "Gast2", "CardM", "Spln", "Liver", "Colon",
                    "Omen", "Perit", "Renal", "Testis", "SkelM", "Skin", "SkinNS",
@@ -190,9 +127,9 @@ skyscraper_slide <- skyscraper +
 show(skyscraper_slide)
 
 
-#ggsave("results/skyscraper_tissues_ms_4A.png", skyscraper_slide, width = 4, height = 2.5, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_4/skyscraper_tissues_ms_4A.png", skyscraper_slide, width = 4, height = 2.5, units = "in", dpi = 300)
-#ggsave("results/skyscraper_tissues_ms_4A.png", skyscraper_slide, width = 4, height = 5.5, units = "in", dpi = 300)
+#ggsave("results/tissue_skyscraper.png", skyscraper_slide, width = 4, height = 2.5, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_4/tissue_skyscraper.png", skyscraper_slide, width = 4, height = 2.5, units = "in", dpi = 300)
+#ggsave("results/tissue_skyscraper.png", skyscraper_slide, width = 4, height = 5.5, units = "in", dpi = 300)
 
 
 

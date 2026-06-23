@@ -4,45 +4,11 @@
 
 
 
-non_cancer_samples = c("Whole blood", 
-                       "Buffy coat", 
-                       "Plasma", 
-                       "Bone marrow", 
-                       "Buccal mucosa", 
-                       "Thyroid", 
-                       "Mainstem bronchus",
-                       "Lung", 
-                       "Esophagus 1", 
-                       "Esophagus 2", 
-                       "Gastric 1",
-                       "Gastric 2",
-                       "Cardiac muscle",
-                       "Spleen",
-                       "Liver",
-                       "Colon",
-                       "Omentum",
-                       "Peritoneum",
-                       "Renal",
-                       "Testis",
-                       "Skeletal muscle",
-                       "Skin",
-                       "Skin, non-sun-exposed")
-
-cancer_samples = c("All tissue-types",
-                   "Mediastinal metastasis",
-                   "Lung metastasis",
-                   "Esophageal cancer 1",
-                   "Esophageal cancer 2",
-                   "Liver metastasis 1",
-                   "Liver metastasis 2")
-
-
 tissue_order <- c(
-                  "Whole blood", 
-                  "Buffy coat", 
-                  "Plasma", 
-                  "Bone marrow", 
-                  "Buccal mucosa", 
+                  "Whole blood",
+                  "Buffy coat",
+                  "Plasma",
+                  "Bone marrow",
                   "Thyroid", 
                   "Mainstem bronchus",
                   "Lung", 
@@ -69,54 +35,13 @@ tissue_order <- c(
                   "Liver metastasis 2",
                   "All tissues")
 
-abbreviations <- c("WB", "Buffy", "Plas", "BM", "Bucc", "Thyr", "Bron", "Lung",
+abbreviations <- c("WB", "Buffy", "Plas", "BM", "Thyr", "Bron", "Lung",
                    "Eso1", "Eso2", "Gast1", "Gast2", "CardM", "Spln", "Liver", "Colon",
                    "Omen", "Perit", "Renal", "Testis", "SkelM", "Skin", "SkinNS",
                    "MedMet", "LungMet", "EsoCa1", "EsoCa2", "LivMet1", "LivMet2",  "All")
 
 tissue_labels <- abbreviations
 names(tissue_labels) <- tissue_order
-tissue_categories <- tribble(
-  ~Tissue,                ~Category,
-  # Blood
-  "Whole blood",          "Blood",
-  "Buffy coat",           "Blood",
-  "Plasma",               "Blood",
-  "Bone marrow",          "Blood",
-  
-  # Solid tissues
-  "Thyroid",              "Solid",
-  "Mainstem bronchus",    "Solid",
-  "Lung",                 "Solid",
-  "Esophagus 1",          "Solid",
-  "Esophagus 2",          "Solid",
-  "Gastric 1",            "Solid",
-  "Gastric 2",            "Solid",
-  "Cardiac muscle",       "Solid",
-  "Spleen",               "Solid",
-  "Liver",                "Solid",
-  "Colon",                "Solid",
-  "Omentum",              "Solid",
-  "Peritoneum",           "Solid",
-  "Renal",                "Solid",
-  "Testis",               "Solid",
-  "Skeletal muscle",      "Solid",
-  "Skin, non-sun-exposed","Solid",
-  
-  # Sun-exposed skin
-  "Skin",                 "Sun-exposed skin",
-  
-  # Cancer
-  "Mediastinal metastasis","Cancer",
-  "Lung metastasis",      "Cancer",
-  "Esophageal cancer 1",  "Cancer",
-  "Esophageal cancer 2",  "Cancer",
-  "Liver metastasis 1",   "Cancer",
-  "Liver metastasis 2",   "Cancer",
-  
-  "All tissues",          "All"
-)
-
 ### input all possible mutations file from omega
 ### mutations in chip bed file regions
 
@@ -152,9 +77,7 @@ observed_all_LFS <- maf_masked_coding %>%
     type = case_when(
       Variant_Classification %in% c("Silent") ~ "synonymous",
       Variant_Classification %in% c(
-        "Missense_Mutation", "Nonsense_Mutation", 
-        "Frame_Shift_Del", "Frame_Shift_Ins", 
-        "In_Frame_Ins", "In_Frame_Del", 
+        "Missense_Mutation", "Nonsense_Mutation",
         "Nonstop_Mutation", "Splice_Site", "Splice_Region"
       ) ~ "nonsynonymous",
       TRUE ~ "exclude"
@@ -263,24 +186,24 @@ dnds_all_LFS <- dnds_all_LFS %>% left_join(boot_iqr, by=c("GENE" = "GENE", "Cate
 group_labels <- c("All" = "All", "Blood" = "Blood", "Cancer" = "Cancer", "Solid" = "Solid\ntissues", "Sun-exposed skin" = "SkinSE")
 pd <- position_dodge(width = 0.9)
 breaks <- c(0.25, 0.5, 1, 2, 4, 8, 16, 32)
-dnds_classic <- ggplot(dnds_all_LFS, aes(x = Category, y = dnds, fill = ifelse(Category == "All", "All", "Other"))) +
-  scale_fill_manual(values = c("All" = "#555555", "Other"="#DDDDDD")) +
-  geom_col(position = position_dodge(width = 0.9), width = 0.8, color = "black") +
-  
+dnds_classic <- ggplot(dnds_all_LFS, aes(x = Category, y = dnds, color = ifelse(Category == "All", "All", "Other"), fill = ifelse(Category == "All", "All", "Other"))) +
+  scale_color_manual(values = c("All" = "#555555", "Other" = "#888888")) +
+  scale_fill_manual(values = c("All" = "#555555", "Other" = "#DDDDDD")) +
   geom_hline(yintercept = 1, linetype = "dotted", color = "black") +
   geom_errorbar(data = boot_iqr,
                 aes(x = Tissue, ymin = dnds_q25, ymax = dnds_q75),
                 position = pd, width = 0.2, inherit.aes = FALSE, na.rm = TRUE) +
+  geom_point(shape = 21, size = 2.5, stroke = 1) +
   geom_text(
     aes(y = -0.1, label = label_fraction),
     position = position_dodge(width = 0.9),
     vjust = +1.15,
     hjust = 0.44,
     size = 3,
-    lineheight = 0.5
+    lineheight = 0.5,
+    color = 'black'
   ) +
   scale_y_continuous(limits = c(-1.3, 6.7), breaks = c(0,1,2,3,4,5,6), labels = c(0,1,2,3,4,5,6)) +
-  #scale_y_log10(breaks = breaks, limits = c(0.135, 32)) +
   scale_x_discrete(labels = group_labels) +
   labs(x = "Gene", y = "dN/dS") +
   theme_minimal() +
@@ -302,12 +225,14 @@ dnds_classic
 
 ## try smaller size in height
 dnds_classic <- dnds_classic +
-  scale_y_continuous(limits = c(-2, 6.7), breaks = c(0,1,2,3,4,5,6), labels = c(0,1,2,3,4,5,6))
+  scale_y_continuous(limits = c(-2, 6.7), breaks = c(0,1,2,3,4,5,6), labels = c(0,1,2,3,4,5,6)) +
+  scale_color_manual(values = c("All" = "#555555", "Other" = "#888888")) +
+  scale_fill_manual(values = c("All" = "#555555", "Other" = "#DDDDDD"))
 dnds_classic
 
 
 #ggsave("results/dnds_naive_tissues_grouped_ms.png", dnds_classic, width = 3.75, height = 1.5, units = "in", dpi = 300)
-ggsave("results/Manuscript_figures/Fig_4/dnds_tissues_grouped_ms_4.png", dnds_classic, width = 3.75, height = 1.5, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_4/tissue_dnds.png", dnds_classic, width = 3.75, height = 1.5, units = "in", dpi = 300)
 
 
 

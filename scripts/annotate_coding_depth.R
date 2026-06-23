@@ -5,11 +5,6 @@
 ## Then use target bed file with masking to apply final coding/non-coding
 ## 3. Use annotations to call coding/non-coding in mutations file
 
-CHIP_genes <- c("NRAS", "BRINP3", "DNMT3A", "IDH1", "GATA2", "KIT", "TET2", "NPM1", 
-                "EZH2", "RAD21", "HNRNPK", "PTEN", "SMC3", "WT1", "KMT2A", "CBL", "KRAS", 
-                "PTPN11", "FLT3", "IDH2", "MYH11", "CEBPA", "ASXL1", "RUNX1", "U2AF1", "SMC1A", 
-                "STAG2", "PHF6", "TP53")
-
 ## generate list of transcripts used for variant calling
 
 transcripts <- filt_maf %>%
