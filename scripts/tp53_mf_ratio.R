@@ -1,13 +1,6 @@
 # ## Li-Fraumeni mutation frequencies TP53 coding and non-coding
 
 
-### family member and control samples
-family <- c("Family member A", "Family member B", "Family member C")
-mstp <- c("UW volunteer 1", "UW volunteer 2", "UW volunteer 3", "UW volunteer 4", "UW volunteer 5", "UW volunteer 6", "UW volunteer 7")
-
-family_patient_blood <- c("Family member A", "Family member B", "Family member C", "Patient")
-#family_patient_blood_samples <- c("PBMC", "Buffy coat", "Plasma", "Whole blood")
-family_patient_blood_samples <- c("PBMC", "Buffy coat")
 
 
 ################################################################################
@@ -19,17 +12,6 @@ family_patient_blood_samples <- c("PBMC", "Buffy coat")
 ###################################################
 
 
-age_map <- c("UW volunteer 1" = 25,
-             "UW volunteer 2" = 30,
-             "UW volunteer 3" = 27,
-             "UW volunteer 4" = 25,
-             "Patient" = 34,
-             "Family member A" = 39,
-             "Family member B" = 61,
-             "UW volunteer 5" = 37,
-             "Family member C" = 69,
-             "UW volunteer 6" = 60,
-             "UW volunteer 7" = 76)
 
 tp53_depth_coding <- final_masked_depth %>%
   filter(gene_name == "TP53") %>%
@@ -49,8 +31,7 @@ tp53_depth_split <- tp53_depth_coding %>%
 tp53_depth_split
 
 #### mutation frequency # of mutations/denominator
-family_patient_blood_samples <- c("PBMC", "Buffy coat")
-mutFreq_prep <- 
+mutFreq_prep <-
   maf_masked_coding %>%
   filter(Subject %in% family_patient_blood | Subject %in% mstp) %>%
   filter(Tissue %in% family_patient_blood_samples) %>%
@@ -59,8 +40,6 @@ mutFreq_prep <-
   mutate(age = age_map[Subject]) %>%
   mutate(plot_coding = if_else(!is.na(exon_number), "coding", "non-coding"))
 
-lfs_subjects = c("Patient", "Family member A", "Family member C")
-ctx_subjects = c("Patient", "UW volunteer 7")
 ### filter for plot
 mutFreq_prep <- mutFreq_prep %>%
   left_join(tp53_depth_split) %>%
@@ -93,12 +72,6 @@ mutFreq_prep$shape_group <- factor(mutFreq_prep$shape_group, levels = patient_hi
 ###############################################################################
 ### TP53 MF coding/non-coding ratio
 ###############################################################################
-shape_group_colors <- c(
-  "non-LFS/no-CTx" = "#44AA99",  # non-LFS color
-  "non-LFS/CTx"     = "#44AA99",  # same as non-LFS
-  "LFS/no-CTx"     = "#882255",  # LFS color
-  "LFS/CTx" = "#882255"   # same as LFS
-)
 
 # Define shapes by patient history
 shape_group_shapes <- c(

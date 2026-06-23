@@ -28,6 +28,22 @@ age_map <- c("UW volunteer 1" = 25,
              "UW volunteer 6" = 60,
              "UW volunteer 7" = 76)
 
+## Subject abbreviations ####
+subj_abbr <- tribble(
+  ~Subject_abbr, ~Subject,
+  "LFS01", "Patient",
+  "LFS02", "Family member A",
+  "REL01", "Family member B",
+  "LFS03", "Family member C",
+  "CON01", "UW volunteer 1",
+  "CON02", "UW volunteer 2",
+  "CON03", "UW volunteer 3",
+  "CON04", "UW volunteer 4",
+  "CON05", "UW volunteer 5",
+  "CON06", "UW volunteer 6",
+  "CON07", "UW volunteer 7"
+)
+
 ## Tissue ordering and groupings ####
 tissue_order <- c("Whole blood",
                   "Buffy coat",
@@ -69,6 +85,34 @@ cancer_samples <- c("All tissue-types", "Mediastinal metastasis", "Lung metastas
                     "Liver metastasis 1", "Liver metastasis 2")
 
 blood_samples <- c("Whole blood", "Bone marrow", "Plasma", "Buffy coat")
+
+## Tissue ordering variants ####
+tissue_order_qc <- c(
+  "Bone marrow", "Whole blood", "Plasma", "Buffy coat", "PBMC",
+  "Thyroid", "Mainstem bronchus", "Lung",
+  "Esophagus 1", "Esophagus 2", "Gastric 1", "Gastric 2",
+  "Cardiac muscle", "Spleen", "Liver", "Colon",
+  "Omentum", "Peritoneum", "Renal", "Testis",
+  "Skeletal muscle", "Skin", "Skin, non-sun-exposed",
+  "Mediastinal metastasis", "Lung metastasis",
+  "Esophageal cancer 1", "Esophageal cancer 2",
+  "Liver metastasis 1", "Liver metastasis 2"
+)
+
+tissue_order_qc_panel <- c(
+  "Bone marrow", "Whole blood", "Plasma", "Buffy coat", "PBMC",
+  "Esophageal cancer 1", "Esophageal cancer 2",
+  "Liver metastasis 1", "Liver metastasis 2",
+  "Lung metastasis", "Mediastinal metastasis",
+  "Liver", "Colon", "Skin", "Skin, non-sun-exposed",
+  "Esophagus 1", "Esophagus 2", "Gastric 1", "Gastric 2",
+  "Thyroid", "Mainstem bronchus", "Lung",
+  "Cardiac muscle", "Spleen",
+  "Omentum", "Peritoneum", "Renal", "Testis",
+  "Skeletal muscle"
+)
+
+tissue_order_dnds <- c(tissue_order, "All tissues")
 
 ## Tissue category groupings (used in MF and dN/dS tissue analyses) ####
 tissue_categories <- tribble(
@@ -135,8 +179,17 @@ tissue_abbreviations <- tribble(
   "Esophageal cancer 2",    "Esoph Ca2",
   "Liver metastasis 1",     "Liver Met1",
   "Liver metastasis 2",     "Liver Met2",
-  "PBMC",                   "PBMC"
+  "PBMC",                   "PBMC",
+  "Urine cells",            "Urine"
 )
+
 
 ## Color palettes ####
 group_colors <- c("non-LFS" = "#44AA99", "LFS" = "#882255")
+
+shape_group_colors <- c(
+  "non-LFS/no-CTx" = "#44AA99",
+  "non-LFS/CTx"    = "#44AA99",
+  "LFS/no-CTx"     = "#882255",
+  "LFS/CTx"        = "#882255"
+)

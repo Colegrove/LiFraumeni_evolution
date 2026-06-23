@@ -206,12 +206,6 @@ LFS_color <- "#882255"
 nonLFS_color <- "#44aa99"
 
 # Define colors by LFS status
-shape_group_colors <- c(
-  "non-LFS/no-CTx" = "#44AA99",  # non-LFS color
-  "non-LFS/CTx"     = "#44AA99",  # same as non-LFS
-  "LFS/no-CTx"     = "#882255",  # LFS color
-  "LFS/CTx" = "#882255"   # same as LFS
-)
 
 # Define shapes by patient history
 shape_group_shapes <- c(
@@ -255,12 +249,6 @@ mutFreq_coding
 ###############################################################################
 
 # Define colors by LFS status
-shape_group_colors <- c(
-  "non-LFS/no-CTx" = "#44AA99",  # non-LFS color
-  "non-LFS/CTx"     = "#44AA99",  # same as non-LFS
-  "LFS/no-CTx"     = "#882255",  # LFS color
-  "LFS/CTx" = "#882255"   # same as LFS
-)
 
 # Define shapes by patient history
 shape_group_shapes <- c(

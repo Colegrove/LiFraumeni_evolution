@@ -4,44 +4,7 @@
 
 
 
-tissue_order <- c(
-                  "Whole blood",
-                  "Buffy coat",
-                  "Plasma",
-                  "Bone marrow",
-                  "Thyroid", 
-                  "Mainstem bronchus",
-                  "Lung", 
-                  "Esophagus 1", 
-                  "Esophagus 2", 
-                  "Gastric 1",
-                  "Gastric 2",
-                  "Cardiac muscle",
-                  "Spleen",
-                  "Liver",
-                  "Colon",
-                  "Omentum",
-                  "Peritoneum",
-                  "Renal",
-                  "Testis",
-                  "Skeletal muscle",
-                  "Skin",
-                  "Skin, non-sun-exposed",
-                  "Mediastinal metastasis",
-                  "Lung metastasis",
-                  "Esophageal cancer 1",
-                  "Esophageal cancer 2",
-                  "Liver metastasis 1",
-                  "Liver metastasis 2",
-                  "All tissues")
-
-abbreviations <- c("WB", "Buffy", "Plas", "BM", "Thyr", "Bron", "Lung",
-                   "Eso1", "Eso2", "Gast1", "Gast2", "CardM", "Spln", "Liver", "Colon",
-                   "Omen", "Perit", "Renal", "Testis", "SkelM", "Skin", "SkinNS",
-                   "MedMet", "LungMet", "EsoCa1", "EsoCa2", "LivMet1", "LivMet2",  "All")
-
-tissue_labels <- abbreviations
-names(tissue_labels) <- tissue_order
+tissue_order <- tissue_order_dnds
 ### input all possible mutations file from omega
 ### mutations in chip bed file regions
 

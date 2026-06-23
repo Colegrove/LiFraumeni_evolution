@@ -52,66 +52,7 @@ metadata <- tribble(
   "CON07","UW volunteer 7", "PBMC", "TP53+MUT+CHIP",
 )
 
-tissue_order <- c(
-  "Bone marrow", "Whole blood","Plasma", "Buffy coat", "PBMC",
-  "Thyroid", "Mainstem bronchus", "Lung",
-  "Esophagus 1", "Esophagus 2", "Gastric 1", "Gastric 2",
-  "Cardiac muscle", "Spleen", "Liver", "Colon",
-  "Omentum", "Peritoneum", "Renal", "Testis",
-  "Skeletal muscle", "Skin", "Skin, non-sun-exposed",
-  "Esophageal cancer 1", "Esophageal cancer 2",
-  "Liver metastasis 1", "Liver metastasis 2",
-  "Lung metastasis", "Mediastinal metastasis"
-)
-## order option 2 to group seq panels better
-tissue_order <- c(
-  "Bone marrow", "Whole blood","Plasma", "Buffy coat", "PBMC",
-  
-  "Esophageal cancer 1", "Esophageal cancer 2",
-  "Liver metastasis 1", "Liver metastasis 2",
-  "Lung metastasis", "Mediastinal metastasis",
-  "Liver", "Colon", "Skin", "Skin, non-sun-exposed", 
-  "Esophagus 1", "Esophagus 2", "Gastric 1", "Gastric 2",
-  "Thyroid", "Mainstem bronchus", "Lung",
-  "Cardiac muscle", "Spleen",
-  "Omentum", "Peritoneum", "Renal", "Testis",
-  "Skeletal muscle"
-)
-
-
-tissue_abbreviations <- tribble(
-  ~Tissue,                   ~Tissue_abbr,
-  "Whole blood",             "WB",
-  "Buffy coat",              "Buffy",
-  "Plasma",                  "Plasma",
-  "Bone marrow",             "BM",
-  #"Buccal mucosa",           "Bucc",
-  "Thyroid",                 "Thyroid",
-  "Mainstem bronchus",       "Bronchus",
-  "Lung",                    "Lung",
-  "Esophagus 1",             "Esoph1",
-  "Esophagus 2",             "Esoph2",
-  "Gastric 1",               "Gast1",
-  "Gastric 2",               "Gast2",
-  "Cardiac muscle",          "Cardiac",
-  "Spleen",                  "Spleen",
-  "Liver",                   "Liver",
-  "Colon",                   "Colon",
-  "Omentum",                 "Omentum",
-  "Peritoneum",              "Peritoneum",
-  "Renal",                   "Renal",
-  "Testis",                  "Testis",
-  "Skeletal muscle",         "Skeletal",
-  "Skin",                    "Skin",
-  "Skin, non-sun-exposed",   "SkinNS",
-  "Mediastinal metastasis",  "Med Met",
-  "Lung metastasis",         "Lung Met",
-  "Esophageal cancer 1",     "Esoph Ca1",
-  "Esophageal cancer 2",     "Esoph Ca2",
-  "Liver metastasis 1",      "Liver Met1",
-  "Liver metastasis 2",      "Liver Met2",
-  "PBMC",                    "PBMC"
-)
+tissue_order <- tissue_order_qc_panel
 
 metadata <- metadata %>%
   mutate(Tissue = factor(Tissue, levels = tissue_order))

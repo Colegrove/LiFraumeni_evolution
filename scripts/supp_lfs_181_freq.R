@@ -1,32 +1,24 @@
 ## Frequency of LFS mutation by tissue type
 
-abbreviations <- c("WB", "Buffy", "Plas", "BM", "Thyr", "Bron", "Lung",
-                   "Eso1", "Eso2", "Gast1", "Gast2", "CardM", "Spln", "Liver", "Colon",
-                   "Omen", "Perit", "Renal", "Testis", "SkelM", "Skin", "SkinNS",
-                   "MedMet", "LungMet", "EsoCa1", "EsoCa2", "LivMet1", "LivMet2")
-
 
 
 LFS_frequency <- MAF_table %>% 
   filter(prot.pos == "181") %>% 
   filter(Subject == "Patient") %>% 
   filter(Hugo_Symbol == "TP53") %>%
-
+  filter(Tissue %in% tissue_order) %>%
   dplyr::select(Hugo_Symbol, Start_Position, Variant_Classification, Reference_Allele, Tumor_Seq_Allele2, t_depth, protein_variant, Tissue, VAF) %>%
   arrange(desc(VAF)) %>%
   mutate(Tissue = reorder(Tissue, VAF, FUN = max)) %>%
   mutate(Tumor = ifelse(Tissue %in% cancer_samples, "Tumor", "Non-Tumor"))
-tissue_labels <- abbreviations
-names(tissue_labels) <- tissue_order
-
-
 custom_label <- function(x) {
   sapply(x, function(t) {
-    abbrev <- tissue_labels[[t]]
+    abbr <- tissue_abbreviations$Tissue_abbr[match(t, tissue_abbreviations$Tissue)]
+    if (is.na(abbr)) abbr <- t
     if (t %in% cancer_samples) {
-      paste0("<span style='color:red;'>", abbrev, "</span>")
+      paste0("<span style='color:red;'>", abbr, "</span>")
     } else {
-      abbrev
+      abbr
     }
   })
 }

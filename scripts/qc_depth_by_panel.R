@@ -10,65 +10,7 @@ sample_map <- read_delim(sample_id_mapping_path, delim = "\t", quote="\"") %>%
 #### all blood and tissues (exclude the following urine, buccal, and devDNA)
 samples_all_exclude <- c("DNA03980_S17.1", "DNA03965_S30_S31.1", "DNA03966_S32.1", "DevDNA1_S1.1")
 
-subj_abbr <- tribble(
-  ~Subject_abbr, ~Subject,
-  "LFS01","Patient",
-  "LFS02","Family member A", 
-  "REL01","Family member B", 
-  "LFS03","Family member C", 
-  "CON01","UW volunteer 1", 
-  "CON02","UW volunteer 2",  
-  "CON03","UW volunteer 3",  
-  "CON04","UW volunteer 4", 
-  "CON05","UW volunteer 5", 
-  "CON06","UW volunteer 6", 
-  "CON07","UW volunteer 7",
-)
-tissue_order <- c(
-  "Bone marrow", "Whole blood","Plasma", "Buffy coat", "PBMC",
-  "Thyroid", "Mainstem bronchus", "Lung",
-  "Esophagus 1", "Esophagus 2", "Gastric 1", "Gastric 2",
-  "Cardiac muscle", "Spleen", "Liver", "Colon",
-  "Omentum", "Peritoneum", "Renal", "Testis",
-  "Skeletal muscle", "Skin", "Skin, non-sun-exposed",
-  "Mediastinal metastasis", "Lung metastasis",
-  "Esophageal cancer 1", "Esophageal cancer 2",
-  "Liver metastasis 1", "Liver metastasis 2"
-)
-tissue_abbreviations <- tribble(
-  ~Tissue,                   ~Tissue_abbr,
-  "Whole blood",             "WB",
-  "Buffy coat",              "Buffy",
-  "Plasma",                  "Plasma",
-  "Bone marrow",             "BM",
-  #"Buccal mucosa",           "Bucc",
-  "Thyroid",                 "Thyroid",
-  "Mainstem bronchus",       "Bronchus",
-  "Lung",                    "Lung",
-  "Esophagus 1",             "Esoph1",
-  "Esophagus 2",             "Esoph2",
-  "Gastric 1",               "Gast1",
-  "Gastric 2",               "Gast2",
-  "Cardiac muscle",          "Cardiac",
-  "Spleen",                  "Spleen",
-  "Liver",                   "Liver",
-  "Colon",                   "Colon",
-  "Omentum",                 "Omentum",
-  "Peritoneum",              "Peritoneum",
-  "Renal",                   "Renal",
-  "Testis",                  "Testis",
-  "Skeletal muscle",         "Skeletal",
-  "Skin",                    "Skin",
-  "Skin, non-sun-exposed",   "SkinNS",
-  "Mediastinal metastasis",  "Med Met",
-  "Lung metastasis",         "Lung Met",
-  "Esophageal cancer 1",     "Esoph Ca1",
-  "Esophageal cancer 2",     "Esoph Ca2",
-  "Liver metastasis 1",      "Liver Met1",
-  "Liver metastasis 2",      "Liver Met2",
-  "PBMC",                    "PBMC",
-  "Urine cells", "Urine"
-)
+tissue_order <- tissue_order_qc
 
 
 
@@ -322,10 +264,6 @@ out_file_tp53 <- "supplemental_tp53_mutations.csv"
 out_file_chip <- "supplemental_chip_mutations.csv"
 out_file_mut <- "supplemental_mut_mutations.csv"
 
-CHIP_genes <- c("NRAS", "BRINP3", "DNMT3A", "IDH1", "GATA2", "KIT", "TET2",   
-                "NPM1" , "EZH2", "RAD21", "HNRNPK", "PTEN" , "SMC3", "WT1", 
-                "KMT2A", "CBL", "KRAS", "PTPN11", "FLT3", "IDH2", "MYH11", 
-                "CEBPA", "ASXL1", "RUNX1", "U2AF1", "SMC1A", "STAG2", "PHF6", "TP53")
 columns_select <- c("Hugo_Symbol", "NCBI_Build", "Chromosome", 
                     "Start_Position", "End_Position", "Variant_Classification",
                     "Variant_Type", "Reference_Allele", "Tumor_Seq_Allele2", 
