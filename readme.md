@@ -2,7 +2,7 @@
 This repository contains the analysis pipeline used to generate analysis and figures as part of the pre-print:  
 [Ultra-deep duplex sequencing reveals unique features of somatic evolution in the normal tissues of a family with Li-Fraumeni syndrome](https://doi.org/10.64898/2026.01.12.699071). 
 
-Data to run pipeline and recreate figures are available here: [dbGaP accession number phs004484.v1.p1]
+Data to run pipeline and recreate figures will be available at dbGaP accession phs004484.v1.p1 upon publication.
 
 Sample .BAM, .MAF, and .MUT files will be required to run analysis in entirety.
 
@@ -13,16 +13,17 @@ Analyses are run using a main script (scripts/00.0_MainScript.R).
 Note: The order of script execution within the main script must be preserved, as later steps depend on objects, annotations, and intermediate results generated throughout the workflow. 
 
 ### Using the pipeline
-1. Open the Rproject file LiFraumeni_evolution.Rproj
-2. Install required packages:
+1. Clone this repository: `git clone https://github.com/Colegrove/LiFraumeni_evolution.git`
+2. Open `LiFraumeni_evolution.Rproj` in RStudio
+3. Install required packages:
 - Run `setup.R` (at the repo root) once in R to install all dependencies automatically.
 - For exact package versions used in the published analysis, see [pre-print supplemental materials](https://www.biorxiv.org/content/10.64898/2026.01.12.699071v1.supplementary-material).
-3. Supply required reference files:
+4. Supply required reference files:
 - See following section for list of necessary files and recommended locations.
-4. Configure inputs:
+5. Configure inputs:
 - Edit processing_config.txt file to specify input data paths and additional data filtering parameters.
-5. Run scripts/00.0_MainScript.R
-- Note: To generate the final figure, phasing_tp53_181_indels.py will need to be run in python after close_muts_181.R. 
+6. Run scripts/00.0_MainScript.R
+- Note: To generate the final figure, phasing_tp53_181_indels.py will need to be run in python between tissue_phasing_prepare.R and tissue_phasing.R. 
 
 ## Required input files
 Large input files are excluded from version control and must be provided prior to running pipeline.
