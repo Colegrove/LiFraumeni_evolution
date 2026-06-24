@@ -21,7 +21,7 @@ Note: The order of script execution within the main script must be preserved, as
 4. Supply required reference files:
 - See following section for list of necessary files and recommended locations.
 5. Configure inputs:
-- Edit processing_config.txt file to specify input data paths and additional data filtering parameters.
+- Open `processing_config.txt` and update the file paths to point to your local copies of the required input files. Filtering parameters are pre-set to values used in the published analysis and can be left as-is to reproduce results.
 6. Run scripts/00.0_MainScript.R
 - Note: To generate the final figure, phasing_tp53_181_indels.py will need to be run in python between tissue_phasing_prepare.R and tissue_phasing.R. 
 
