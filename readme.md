@@ -29,11 +29,9 @@ Note: The order of script execution within the main script must be preserved, as
 Large input files are excluded from version control and must be provided prior to running pipeline.
 Below are suggested filepath locations for input files. Edit processing_config.txt if input files are located in different locations.
 
-1. Human reference genome; inputs/refs/hg38.fa
-2. All possible mutations table; inputs/all_possible_sites_annotated.tsv.gz:
-- A file containing all possible single-nucleotide variants must be generated and annotated with VEP
-- https://www.ensembl.org/vep
-3. Gene annotation file, inputs/gencode.v38.annotation.gff3.gz:
-- https://www.gencodegenes.org/human/release_48.html
-4. Alphamissense annotations file, inputs/alphamissense/AlphaMissense_hg38.tsv.gz:
+1. Human reference genome; inputs/ref_genomes/hg38.fa
+- A samtools index (hg38.fa.fai) must be present alongside the FASTA
+2. Gene annotation file, inputs/gencode.v38.annotation.gff3.gz:
+- https://www.gencodegenes.org/human/release_38.html
+3. Alphamissense annotations file, inputs/alphamissense/AlphaMissense_hg38.tsv.gz:
 - https://zenodo.org/records/8208688
