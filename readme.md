@@ -35,3 +35,13 @@ Below are suggested filepath locations for input files. Edit processing_config.t
 - https://www.gencodegenes.org/human/release_38.html
 3. Alphamissense annotations file, inputs/alphamissense/AlphaMissense_hg38.tsv.gz:
 - https://zenodo.org/records/8208688
+4. Alphamissense TP53 subset, inputs/alphamissense/AlphaMissense_hg38.TP53.tsv:
+- Subset of the file above, containing the four header lines and all rows for the canonical TP53 transcript (ENST00000445888.6):
+```
+cd inputs/alphamissense
+gzcat AlphaMissense_hg38.tsv.gz | head -4 > AlphaMissense_hg38.TP53.tsv
+gzcat AlphaMissense_hg38.tsv.gz | grep ENST00000445888 >> AlphaMissense_hg38.TP53.tsv
+```
+5. VEP annotations for CHIP panel target sites, inputs/all_muts_vep.txt.gz:
+- Generated part-way through the pipeline: scripts/chip_dnds_target_sites.R writes results/allmutations.tsv, which must be annotated with VEP and saved to the path above before scripts/chip_dnds_target_annotate.R is run
+- https://www.ensembl.org/vep
