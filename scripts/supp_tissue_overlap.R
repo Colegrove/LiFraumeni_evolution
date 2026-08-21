@@ -84,6 +84,7 @@ df_agg <- df_agg %>%
   #mutate(prot.pos = factor(prot.pos, levels = unique(prot.pos)))
   mutate(protein_variant = factor(protein_variant, levels = unique(protein_variant)))
 
+
 df_agg <- df_agg %>%
   mutate(Tissue = factor(Tissue, levels = levels(skyscraper_prep$Tissue_ordered)))
 

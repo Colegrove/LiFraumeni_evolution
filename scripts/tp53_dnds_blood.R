@@ -32,6 +32,7 @@ unique(maf_masked_coding$Subject)
 observed_all_LFS <- maf_masked_coding %>%
   filter(!is.na(gene_name) | Variant_Classification == "Splice_Site") %>%
   filter(!is.na(exon_number) | Variant_Classification == "Splice_Site") %>%
+  filter(!inRepeatMask | Variant_Classification == "Splice_Site") %>%
   filter(
     Tumor_Sample_Barcode != "DevDNA1_S1.1",
     Tissue %in% tissues,
@@ -168,6 +169,17 @@ dnds_all_LFS <- dnds_all_LFS %>%
     )
   )
 
+boot_iqr <- boot_iqr %>%
+  mutate(
+    fill_group = case_when(
+      Group == "LFS\nCTx"   ~ "fill_x",
+      Group == "LFS\nno-CTx"  ~ "outline_x",
+      Group == "non-LFS\nCTx"   ~ "fill_y",
+      Group == "non-LFS\nno-CTx"  ~ "outline_y",
+      TRUE                       ~ "other"
+    )
+  )
+
 fill_scale <- scale_fill_manual(
   values = c(
     fill_x    = "#882255",
@@ -191,7 +203,7 @@ dnds_all_LFS
 dnds_classic <- ggplot(dnds_all_LFS, aes(x = Group, y = dnds)) +
   geom_hline(yintercept = 1, linetype = "dotted", color = "black") +
   geom_errorbar(data = boot_iqr,
-                aes(x = Group, ymin = dnds_q25, ymax = dnds_q75),
+                aes(x = Group, ymin = dnds_q25, ymax = dnds_q75, color = fill_group),
                 position = pd, width = 0.2, inherit.aes = FALSE, na.rm = TRUE) +
   geom_point(aes(color = fill_group, fill = fill_group), shape = 21, size = 2.5, stroke = 1) +
   geom_text(
@@ -206,7 +218,7 @@ dnds_classic <- ggplot(dnds_all_LFS, aes(x = Group, y = dnds)) +
   fill_scale +
   color_scale +
   scale_y_continuous(limits = c(lower_lim, upper_lim), breaks = breaks) +
-  labs(x = "Gene", y = "dN/dS") +
+  labs(x = "Gene", y = expression(italic(d)[N]/italic(d)[S])) +
   theme_minimal() +
   theme(
     axis.text.x = element_text(hjust = 0.5, size=8, margin=margin(0,0,0,0)),
@@ -233,7 +245,7 @@ boot_iqr %>% filter( Group %in% c("LFS\nno-CTx", "non-LFS\nno-CTx"))
 dnds_classic_no_chemo <- ggplot(dnds_all_LFS %>% filter(Group %in% c("LFS\nno-CTx", "non-LFS\nno-CTx")), aes(x = Group, y = dnds)) +
   geom_hline(yintercept = 1, linetype = "dotted", color = "black") +
   geom_errorbar(data = boot_iqr %>% filter(Group %in% c("LFS\nno-CTx", "non-LFS\nno-CTx")),
-                aes(x = Group, ymin = dnds_q25, ymax = dnds_q75),
+                aes(x = Group, ymin = dnds_q25, ymax = dnds_q75, color = fill_group),
                 position = pd, width = 0.2, inherit.aes = FALSE, na.rm = TRUE) +
   geom_point(aes(color = fill_group, fill = fill_group), shape = 21, size = 2.5, stroke = 1) +
   fill_scale +
@@ -247,7 +259,7 @@ dnds_classic_no_chemo <- ggplot(dnds_all_LFS %>% filter(Group %in% c("LFS\nno-CT
   #   lineheight = 0.5
   # ) +
   scale_y_continuous(limits = c(0, 2), breaks = c(0,1, 2)) +
-  labs(x = "Gene", y = "dN/dS") +
+  labs(x = "Gene", y = expression(italic(d)[N]/italic(d)[S])) +
   theme_minimal() +
   theme(
     #axis.text.x = element_text(hjust = 0.5, size=8, margin=margin(0,0,0,0)),

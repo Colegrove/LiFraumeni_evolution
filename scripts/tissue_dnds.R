@@ -168,7 +168,7 @@ dnds_classic <- ggplot(dnds_all_LFS, aes(x = Category, y = dnds, color = ifelse(
   ) +
   scale_y_continuous(limits = c(-1.3, 6.7), breaks = c(0,1,2,3,4,5,6), labels = c(0,1,2,3,4,5,6)) +
   scale_x_discrete(labels = group_labels) +
-  labs(x = "Gene", y = "dN/dS") +
+  labs(x = "Gene", y = expression(italic(d)[N]/italic(d)[S])) +
   theme_minimal() +
   theme(
     #axis.text.x = element_blank(),
@@ -189,13 +189,10 @@ dnds_classic
 ## try smaller size in height
 dnds_classic <- dnds_classic +
   scale_y_continuous(limits = c(-2, 6.7), breaks = c(0,1,2,3,4,5,6), labels = c(0,1,2,3,4,5,6)) +
-  scale_color_manual(values = c("All" = "#555555", "Other" = "#888888")) +
-  scale_fill_manual(values = c("All" = "#555555", "Other" = "#DDDDDD"))
+  scale_color_manual(values = c("All" = "#888888", "Other" = "#888888")) +
+  scale_fill_manual(values = c("All" = "#DDDDDD", "Other" = "#DDDDDD"))
 dnds_classic
 
 
 #ggsave("results/dnds_naive_tissues_grouped_ms.png", dnds_classic, width = 3.75, height = 1.5, units = "in", dpi = 300)
 ggsave("results/Manuscript_figures/Fig_4/tissue_dnds.png", dnds_classic, width = 3.75, height = 1.5, units = "in", dpi = 300)
-
-
-

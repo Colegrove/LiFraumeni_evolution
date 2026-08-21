@@ -45,7 +45,7 @@ all_missense <- all_possible_muts %>%
   filter(GENE == "TP53") %>%
   left_join(alphamissense, by = c("POS" = "POS", "REF" = "REF", "ALT" = "ALT")) %>%
   filter(!is.na(am_pathogenicity))
-
+unique(all_missense$GENE)
 ################################################################################
 ### LFS01 Tissues
 ################################################################################
@@ -103,6 +103,7 @@ mw_greaterthan1_tissue <- wilcox.test(
   combine_df_large_clones %>% filter(group == "Not observed")       %>% pull(am_pathogenicity),
   combine_df_large_clones %>% filter(group == "Observed (>1 read)") %>% pull(am_pathogenicity)
 )
+mw_greaterthan1_tissue
 
 obsv_am_large_clones_tissue <- ggplot(combine_df_large_clones, aes(x = group, y = am_pathogenicity, color = group)) +
   geom_violin(
@@ -162,7 +163,7 @@ obsv_am_large_clones_tissue <- ggplot(combine_df_large_clones, aes(x = group, y 
   labs(y = "Pathogenicity score", x = NULL) +
   scale_x_discrete(
     labels = c(
-      "Not observed"       = paste0("All possible\nSNVs\nn = ", n_all),
+      "Not observed"       = paste0("All possible\nmissense SNVs\nn = ", n_all),
       "Observed (1 read)"  = paste0("Observed\n(1 read)\nn = ", n_1),
       "Observed (>1 read)" = paste0("Observed\n(>1 read)\nn = ", n_large)
     )
@@ -170,7 +171,7 @@ obsv_am_large_clones_tissue <- ggplot(combine_df_large_clones, aes(x = group, y 
   theme_classic(base_size = 8) +
   theme(
     axis.title.y = element_text(size = 8),
-    axis.text.x  = element_text(size = 8),
+    axis.text.x  = element_text(size = 8, hjust = c(0.6, 0.5, 0.5)),
     axis.text.y  = element_text(size = 8),
     legend.position = "none",
     plot.margin = margin(60, 2, 2, 2, "pt")
@@ -317,6 +318,8 @@ mw_greaterthan1_blood <- wilcox.test(
   combine_df_large_clones %>% filter(group == "Observed (>1 read)") %>% pull(am_pathogenicity)
 )
 
+mw_1_blood
+mw_greaterthan1_blood
 obsv_am_large_clones_blood <- ggplot(combine_df_large_clones, aes(x = group, y = am_pathogenicity, color = group)) +
   geom_violin(
     data = subset(combine_df_large_clones, group == "Not observed"),
@@ -367,7 +370,7 @@ obsv_am_large_clones_blood <- ggplot(combine_df_large_clones, aes(x = group, y =
   coord_cartesian(ylim = c(0, 1), clip = "off") +
   scale_x_discrete(
     labels = c(
-      "Not observed"       = paste0("All possible\nSNVs\nn = ", n_all),
+      "Not observed"       = paste0("All possible\nmissense SNVs\nn = ", n_all),
       "Observed (1 read)"  = paste0("Observed\n(1 read)\nn = ", n_1),
       "Observed (>1 read)" = paste0("Observed\n(>1 read)\nn = ", n_large)
     )
@@ -376,7 +379,7 @@ obsv_am_large_clones_blood <- ggplot(combine_df_large_clones, aes(x = group, y =
   theme_classic(base_size = 8) +
   theme(
     axis.title.y = element_text(size = 8),
-    axis.text.x  = element_text(size = 8),
+    axis.text.x  = element_text(size = 8, hjust = c(0.6, 0.5, 0.5)),
     axis.text.y  = element_text(size = 8),
     legend.position = "none",
     plot.margin = margin(60, 2, 2, 2, "pt")

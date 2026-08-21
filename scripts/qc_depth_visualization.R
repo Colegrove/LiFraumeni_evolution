@@ -136,3 +136,17 @@ depth_plot_split <- ggplot(tissue_information_depths_grouped,
 
 depth_plot_split
 ggsave("results/Manuscript_figures/Fig_1/depth_schematic.png", depth_plot_split, width = 4.8, height = 1.8, units = "in", dpi = 300)
+
+
+
+### cumulative sequencing depths:
+
+blood_cumulative_seq <- 
+  tissue_information_depths_grouped %>%
+  filter(TissueGroup == "Blood") %>%
+  summarise(total = sum(DP)) %>% print()
+
+tissue_cumulative_seq <-
+  tissue_information_depths_grouped %>%
+  filter(TissueGroup == "Solid tissues") %>%
+  summarise(total = sum(DP)) %>% print()
