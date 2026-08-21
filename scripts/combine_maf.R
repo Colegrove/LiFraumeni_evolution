@@ -8,20 +8,27 @@
 
 
 ## path of files
-dat_path <- "/inputs/mafs/"
+dat_path <- "inputs/mafs/"
 
 if (! file.exists("inputs/mafs/allSamples_noINFO.maf") ) {
   ## find all relevant mafs
   maf_NoINFO_list <- list.files(dat_path, pattern = "\\.variant-calls\\.noINFO\\.maf$", recursive = TRUE, full.names = TRUE)
-  
+
+  if (length(maf_NoINFO_list) == 0) {
+    stop(
+      paste0(
+        "No *.variant-calls.noINFO.maf files found in ", dat_path, "\n\n",
+        "Per-sample MAF files are not included in this repository. ",
+        "Download them from dbGaP (phs004484.v1.p1) and place them in ", dat_path
+      ),
+      call. = FALSE
+    )
+  }
+
   ## combine the mafs - PHENO column has interfile discrepancy call string to not remove values
-  combined_data <- maf_NoINFO_list %>% 
+  combined_data <- maf_NoINFO_list %>%
     map_dfr(~ read_delim(.x, delim = "\t", skip = 1, col_types = cols(PHENO = col_character())))
-  
-  print(combined_data)
-  output_path <- "/inputs/mafs/"
-  out_filename <- "allSamples_noINFO.maf"
-  out_filepath <- glue("{output_path}{out_filename}")
-  print(out_filepath)
+
+  out_filepath <- file.path(dat_path, "allSamples_noINFO.maf")
   write_delim(combined_data, out_filepath, delim='\t')
 }

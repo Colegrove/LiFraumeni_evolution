@@ -16,8 +16,6 @@ results/*
 inputs/all_muts_annotated.tsv.gz
 inputs/alphamissense/*
 inputs/bed_file_MUT.csv
-inputs/all_muts_vep.txt.gz
-inputs/bed_file_MUT.csv
 scripts_full/*
 inputs/gencode.v38.annotation.gff3.gz
 inputs/mafs/*

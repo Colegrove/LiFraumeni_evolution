@@ -7,7 +7,7 @@ if (!file.exists(file)) {
   stop(
     paste0(
       "Required input file not found:\n  ", file, "\n\n",
-      "After running scripts/close_muts_181.R, 
+      "After running scripts/tissue_phasing_prepare.R,
       run phasing_tp53_181_indels.py in python to generate input file."
     ),
     call. = FALSE
