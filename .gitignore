@@ -15,7 +15,6 @@ results/*
 
 inputs/all_muts_annotated.tsv.gz
 inputs/alphamissense/*
-!inputs/alphamissense/AlphaMissense_hg38.TP53.tsv
 inputs/bed_file_MUT.csv
 inputs/all_muts_vep.txt.gz
 scripts_full/*
