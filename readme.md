@@ -30,7 +30,6 @@ Large input files are excluded from version control and must be provided prior t
 Below are suggested filepath locations for input files. Edit processing_config.txt if input files are located in different locations.
 
 1. Human reference genome; inputs/ref_genomes/hg38.fa
-- A samtools index (hg38.fa.fai) must be present alongside the FASTA
 2. Gene annotation file, inputs/gencode.v38.annotation.gff3.gz:
 - https://www.gencodegenes.org/human/release_38.html
 3. Alphamissense annotations file, inputs/alphamissense/AlphaMissense_hg38.tsv.gz:
