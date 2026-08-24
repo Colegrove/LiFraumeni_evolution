@@ -29,6 +29,8 @@ if (! file.exists("inputs/mafs/allSamples_noINFO.maf") ) {
   combined_data <- maf_NoINFO_list %>%
     map_dfr(~ read_delim(.x, delim = "\t", skip = 1, col_types = cols(PHENO = col_character())))
 
+  ## write with the leading "#version" sentinel so the output is a valid MAF
   out_filepath <- file.path(dat_path, "allSamples_noINFO.maf")
-  write_delim(combined_data, out_filepath, delim='\t')
+  writeLines("#version 2.4", out_filepath)
+  write_delim(combined_data, out_filepath, delim="\t", append = TRUE, col_names = TRUE)
 }

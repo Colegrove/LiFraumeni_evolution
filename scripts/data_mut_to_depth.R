@@ -60,11 +60,11 @@ if (! file.exists("inputs/mafs/combined_genome_pipeline.tsv") ) {
     
     # rename columns to fit with depth file 
     DP_column_table <- mut_genome_table %>%
-      rename(Chr = contig) %>%
-      rename(Pos = start) %>%
-      rename(DP = depth) %>%
-      rename(Ns = no_calls) %>%
-      rename(Samp = sample)
+      dplyr::rename(Chr = contig) %>%
+      dplyr::rename(Pos = start) %>%
+      dplyr::rename(DP = depth) %>%
+      dplyr::rename(Ns = no_calls) %>%
+      dplyr::rename(Samp = sample)
     
     # write to new file
     output_file_path <- gsub("\\.genome\\.mut$", ".pipeline.tsv", file_path)

@@ -28,8 +28,11 @@ loadMaf <- function(inMafFile,
                   "t_NC",
                   "fName")
 
+  ## MAF files carry a leading "#version" sentinel line - skip it only when present
+  maf_skip <- if (startsWith(readLines(inMafFile, n = 1), "#")) 1 else 0
+
   outData <- 
-    read_delim(inMafFile, delim="\t", skip=1) %>%
+    read_delim(inMafFile, delim="\t", skip = maf_skip) %>%
     { print(.); . } %>%
     type_convert() %>% 
     mutate(Samp = Tumor_Sample_Barcode) %>%

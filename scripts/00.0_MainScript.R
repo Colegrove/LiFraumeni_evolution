@@ -52,6 +52,7 @@ sample_data <- read_csv(inputs$extra_data_file)
 ## Load Functions####
 source("scripts/fn_load_maf.R")
 source("scripts/fn_load_bed.R")
+source("scripts/fn_check_bed_overlap.R")
 source("scripts/color_scale.R")
 
 ## Shared constants (tissue lists, subject groupings, gene panels, palettes) ####

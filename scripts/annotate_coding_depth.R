@@ -43,7 +43,7 @@ annotations_expand <- annotations %>% filter(type == "transcript") %>%
 
 ## join genic regions
 joined <- DP_filt %>%
-  rename(end = "End") %>%
+  dplyr::rename(End = end) %>%
   filter(Samp != "DevDNA1_S1.1") %>%
   left_join(annotations_expand, by = c("Chr" = "seqnames", "End" = 'Pos'))
 
