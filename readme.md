@@ -23,7 +23,7 @@ Note: The order of script execution within the main script must be preserved, as
 5. Configure inputs:
 - Open `processing_config.txt` and update the file paths to point to your local copies of the required input files. Filtering parameters are pre-set to values used in the published analysis and can be left as-is to reproduce results.
 6. Run scripts/00.0_MainScript.R
-- Note: To generate the final figure, phasing_tp53_181_indels.py will need to be run in python between tissue_phasing_prepare.R and tissue_phasing.R. 
+- Note: To generate the final figure, phasing_tp53_181_indels.py will need to be run in python between tissue_phasing_prepare.R and tissue_phasing.R. This script requires pandas and pysam, and consensus BAMs placed at BAMs/<sample>/<sample>.consensus.bam in the repository root.
 
 ## Required input files
 Large input files are excluded from version control and must be provided prior to running pipeline.
@@ -35,13 +35,6 @@ Below are suggested filepath locations for input files. Edit processing_config.t
 - https://www.gencodegenes.org/human/release_38.html
 3. Alphamissense annotations file, inputs/alphamissense/AlphaMissense_hg38.tsv.gz:
 - https://zenodo.org/records/8208688
-4. Alphamissense TP53 subset, inputs/alphamissense/AlphaMissense_hg38.TP53.tsv:
-- Subset of the file above, containing the four header lines and all rows for the canonical TP53 transcript (ENST00000445888.6):
-```
-cd inputs/alphamissense
-gzcat AlphaMissense_hg38.tsv.gz | head -4 > AlphaMissense_hg38.TP53.tsv
-gzcat AlphaMissense_hg38.tsv.gz | grep ENST00000445888 >> AlphaMissense_hg38.TP53.tsv
-```
-5. VEP annotations for CHIP panel target sites, inputs/all_muts_vep.txt.gz:
+4. VEP annotations for CHIP panel target sites, inputs/all_muts_vep.txt.gz:
 - Generated part-way through the pipeline: scripts/chip_dnds_target_sites.R writes results/allmutations.tsv, which must be annotated with VEP and saved to the path above before scripts/chip_dnds_target_annotate.R is run
 - https://www.ensembl.org/vep

@@ -81,7 +81,5 @@ variant_type_proportion <- ggplot(mutation_type_prep, aes(x = Tissue_ordered, fi
         plot.margin=margin(2,4,2,4))
 
 variant_type_proportion
-#ggsave("results/variant_type_proportion_tissues.png", variant_type_proportion, width = 4, height = .65, units= "in", dpi = 300)
-#ggsave("results/variant_type_proportion_tissues.png", variant_type_proportion, width = 4, height = .5, units= "in", dpi = 300)
-#ggsave("results/variant_type_proportion_tissues.png", variant_type_proportion, width = 4, height = .5, units= "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_4/tissue_variant_types.png", variant_type_proportion, width = 4, height = .5, units= "in", dpi = 300)
 

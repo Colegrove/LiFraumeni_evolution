@@ -3,9 +3,11 @@ import pysam
 import os
 
 ############ INPUTS ############
-mutations_file = "../results/close_muts_181.tsv" ## filtered maf from R
-bam_dir = "../BAMs/"   ## directory containing BAM files
-output_file = "../results/phasing_181_indels.csv"
+## paths are resolved from the repository root so this runs from any directory
+repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+mutations_file = os.path.join(repo_root, "results", "close_muts_181.tsv") ## filtered maf from R
+bam_dir = os.path.join(repo_root, "BAMs")   ## directory containing BAM files
+output_file = os.path.join(repo_root, "results", "phasing_181_indels.csv")
 ################################
 
 # Load mutation table
@@ -168,6 +170,13 @@ for idx, row in mutations.iterrows():
     all_results.extend(results)
 
 # Convert to dataframe and save
+if not all_results:
+    raise SystemExit(
+        f"No phasing results generated - no BAM files were read from {bam_dir}\n"
+        "Consensus BAMs are not included in this repository; place them at "
+        "BAMs/<sample>/<sample>.consensus.bam in the repository root."
+    )
+
 df_out = pd.DataFrame(all_results)
 df_out.to_csv(output_file, index=False)
 print(f"Results written to {output_file}")
