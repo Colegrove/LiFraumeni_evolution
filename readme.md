@@ -1,6 +1,6 @@
-# Li-Fraumeni evolution
-This repository contains the analysis pipeline used to generate analysis and figures as part of the pre-print:  
-[Ultra-deep duplex sequencing reveals unique features of somatic evolution in the normal tissues of a family with Li-Fraumeni syndrome](https://doi.org/10.64898/2026.01.12.699071). 
+# Ultra-deep duplex sequencing reveals unique features of somatic evolution in the normal tissues of a family with Li-Fraumeni syndrome
+
+This repository contains the analysis pipeline used to generate the analysis and figures in the pre-print, available at [doi.org/10.64898/2026.01.12.699071](https://doi.org/10.64898/2026.01.12.699071).
 
 Data to run pipeline and recreate figures will be available at dbGaP accession phs004484.v1.p1 upon publication.
 
