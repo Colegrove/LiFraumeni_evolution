@@ -15,6 +15,7 @@ output_dirs <- c(
   "results/Manuscript_figures/Fig_S5",
   "results/Manuscript_figures/Fig_S6",
   "results/Manuscript_figures/Fig_S7",
+  "results/Manuscript_figures/Fig_S8",
   "results/Manuscript_figures/revisions",
   "results/Manuscript_tables"
 )
@@ -96,7 +97,7 @@ source("scripts/cross_contamination_filter.R")
 source("scripts/qc_depth_by_panel.R")
 source("scripts/qc_depth_visualization.R")
 
-######## CHIP blood analysis (Fig 2, S2, S3)
+######## CHIP blood analysis (Fig 2, S2, S3, S4)
 ## MF regression: 2BC
 source("scripts/chip_mf_coding_noncoding.R")
 ## multivariate regression coefficients: 2DE
@@ -122,8 +123,10 @@ source("scripts/chip_dnds_target_annotate.R")
 source("scripts/chip_dnds_all_genes.R")
 ## mutation burden regression: S3
 source("scripts/supp_chip_mutation_burden.R")
+## CC>TT DNVs with SBS signatures in blood: S4
+source("scripts/supp_blood_dnv_mutsigs.R")
 
-######## TP53 blood analysis (Fig 3, S4)
+######## TP53 blood analysis (Fig 3, S5)
 ## MF regression: 3BC
 source("scripts/tp53_mf_coding_noncoding.R")
 ## multivariate regression coefficients: 3DE
@@ -136,20 +139,20 @@ source("scripts/tp53_mf_ratio.R")
 source("scripts/tp53_dnds_blood.R")
 ## DBD AlphaMissense pathogenicity: 3C/D & 4F/G
 source("scripts/tp53_binding_domain.R")
-## AlphaMissense annotation + grouped plot: 3K, S4
+## AlphaMissense annotation + grouped plot: 3K, S5
 source("scripts/tp53_annotate_alphamissense.R")
 source("scripts/supp_tp53_alphamissense.R")
 
-######## Tissue analysis (Fig 4, S5, S6, S7)
+######## Tissue analysis (Fig 4, S6, S7, S8)
 ## clone size by VAF across tissues: 4A
 source("scripts/tissue_skyscraper.R")
 ## SNV/indel proportions: 4H
 source("scripts/tissue_variant_types.R")
 ## mutation sharing heatmap: 4A/4G
 source("scripts/tissue_mutation_overlap.R")
-## cross-tissue contamination filter: S6 (must precede tissue_dnv, which overwrites skyscraper_prep)
+## cross-tissue contamination filter: S7 (must precede tissue_dnv, which overwrites skyscraper_prep)
 source("scripts/supp_contamination.R")
-## mutation overlap all tissues: S7 (must precede tissue_dnv, which overwrites skyscraper_prep)
+## mutation overlap all tissues: S8 (must precede tissue_dnv, which overwrites skyscraper_prep)
 source("scripts/supp_tissue_overlap.R")
 ## dinucleotide variants: 4B
 source("scripts/tissue_dnv.R")
@@ -161,7 +164,7 @@ source("scripts/tissue_mutsigs.R")
 source("scripts/tissue_lollipop.R")
 ## dN/dS across tissue groups: 4I
 source("scripts/tissue_dnds.R")
-## 181 LFS mutation frequency: S5
+## 181 LFS mutation frequency: S6
 source("scripts/supp_lfs_181_freq.R")
 ## phasing: 4K
 ## Note: an external python script must be run between these two:

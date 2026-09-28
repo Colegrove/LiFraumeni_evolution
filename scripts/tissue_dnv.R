@@ -63,22 +63,19 @@ dnv <- mutation_type_prep %>% filter(Variant_Type == "DNP") %>%
   ) %>%
   mutate(DNV_group = factor(DNV_group, levels = c("CT>AC", "CC>TT", "GC>TT", "GT>AA")))
 
+## CC>TT matches the blood DNV figure (S4); other DNV colors are chosen to avoid
+## the categorical colors used elsewhere in Figure 4
 dnv_colors <- c(
   "CC>TT" = "#E69F00",
-  "CT>AC" = "#5F0873", 
-  "GC>TT" = "#009E73",  
-  "GT>AA" = "#56B4E9" 
+  "CT>AC" = "#3CC6B0",
+  "GC>TT" = "#3F3D8F",
+  "GT>AA" = "#6B4220"
 )
 
-dnv_colors <- c(
-  "CC>TT" = "#000000",
-  "CT>AC" = "#D9D9D9", 
-  "GC>TT" = "#5d5d5d",  
-  "GT>AA" = "#999999" 
-)
-
-dnv$DNV_group <- factor(dnv$DNV_group, 
+dnv$DNV_group <- factor(dnv$DNV_group,
                         levels = c("CT>AC", "GC>TT", "GT>AA", "CC>TT"))
+## Buffy coat leftmost, regardless of which tissue_order is in effect
+dnv$Tissue <- fct_relevel(dnv$Tissue, "Buffy coat")
 
 dnv_counts <- ggplot(dnv, aes(x = Tissue, fill = DNV_group)) +
   geom_bar(position = "stack") +

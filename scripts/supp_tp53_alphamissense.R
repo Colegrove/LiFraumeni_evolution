@@ -141,7 +141,7 @@ combined <- obsv_am_blood_groups / prop_plot +
   plot_layout(heights = c(2, 1))
 
 combined
-ggsave("results/Manuscript_figures/Fig_S4/supp_tp53_alphamissense.png", combined, width = 7, height = 3, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_S5/supp_tp53_alphamissense.png", combined, width = 7, height = 3, units = "in", dpi = 300)
 
 
 
