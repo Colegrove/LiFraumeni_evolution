@@ -102,4 +102,4 @@ blood_contamination_slide <- blood_contamination +
 
 
 show(blood_contamination_slide)
-ggsave("results/Manuscript_figures/Fig_S7/blood_contamination_tissues.png", blood_contamination_slide, width = 5, height = 6, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_S8/blood_contamination_tissues.png", blood_contamination_slide, width = 5, height = 6, units = "in", dpi = 300)

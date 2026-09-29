@@ -40,4 +40,4 @@ plot <- ggplot(LFS_frequency, aes(x=Tissue, y = VAF, color = Tumor)) +
   scale_color_manual(name = NULL, values = c("Tumor" = "red", "Non-Tumor" = "black")) 
   
 plot
-ggsave("results/Manuscript_figures/Fig_S6/supp_lfs_181_freq.png", plot, width = 4, height = 2.5, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_S7/supp_lfs_181_freq.png", plot, width = 4, height = 2.5, units = "in", dpi = 300)

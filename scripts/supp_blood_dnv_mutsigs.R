@@ -1,4 +1,4 @@
-## Supplemental Figure S4: CC>TT dinucleotide variants and SBS signatures in blood
+## Supplemental Figure S5: CC>TT dinucleotide variants and SBS signatures in blood
 ## Top:    DNV counts per blood sample (CC>TT vs all other DNVs)
 ## Middle: SBS signature proportions per blood sample
 ## Bottom: total SBS mutations assigned per sample
@@ -176,4 +176,4 @@ blood_dnv_mutsigs <- dnv_counts_top / blood_sigs_bottom / n_panel +
   )
 
 blood_dnv_mutsigs
-ggsave("results/Manuscript_figures/Fig_S4/blood_dnv_mutsigs.png", blood_dnv_mutsigs, width = 5, height = 2.5, units = "in", dpi = 300)
+ggsave("results/Manuscript_figures/Fig_S5/blood_dnv_mutsigs.png", blood_dnv_mutsigs, width = 5, height = 2.5, units = "in", dpi = 300)

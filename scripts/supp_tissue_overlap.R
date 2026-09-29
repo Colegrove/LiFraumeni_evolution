@@ -169,5 +169,5 @@ heatmap_codon <- ggplot(df_agg_top, aes(x = Tissue, y = protein_variant, fill = 
   ) + guides(fill = guide_legend(nrow=2, title = "Pathogenicity class" ))
 show(heatmap_codon)
 
-ggsave("results/Manuscript_figures/Fig_S8/mutation_heatmap_most_shared_codons.png", heatmap_codon, width = 5, height = 3.5, units = "in")
+ggsave("results/Manuscript_figures/Fig_S9/mutation_heatmap_most_shared_codons.png", heatmap_codon, width = 5, height = 3.5, units = "in")
 
